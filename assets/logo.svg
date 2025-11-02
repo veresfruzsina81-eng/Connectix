@@ -1,1 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- háttér -->
+  <rect width="200" height="200" rx="32" fill="url(#grad)"/>
+
+  <!-- C betű -->
+  <path d="M130 60a50 50 0 1 0 0 80" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round"/>
+
+  <!-- kis pont a közepén -->
+  <circle cx="130" cy="100" r="8" fill="#fff"/>
+
+  <!-- szöveg -->
+  <text x="100" y="180" text-anchor="middle" fill="#fff" font-size="22" font-family="system-ui" font-weight="600">
+    CONNECTIX
+  </text>
+</svg>
 
