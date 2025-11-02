@@ -1,217 +1,294 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Connectix — Slovakisk selskabsstiftelse</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Connectix — Slovakisk selskabsstiftelse</title>
+<style>
+:root{
+  --blue:#0b2e67; --blue-ink:#0a2a5a; --beige:#cdb286;
+  --ink:#0f172a; --sub:#5b6778; --line:#e7eaee; --muted:#f6f8fb;
+  --r:22px; --shadow:0 18px 40px rgba(2,6,23,.08),0 4px 10px rgba(2,6,23,.06);
+}
+*{box-sizing:border-box} html,body{margin:0;padding:0}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--ink);background:#fff;line-height:1.65}
+a{color:#1d4ed8;text-decoration:none} a:hover{text-decoration:underline}
+.container{max-width:1180px;margin:0 auto;padding:0 28px}
+
+/* anim */
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes slideUp{from{opacity:.0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.reveal{opacity:0;transform:translateY(16px)} .seen{opacity:1;transform:none;transition:.5s}
+
+/* top contact strip */
+.topstrip{border-bottom:1px solid var(--line);background:#fff}
+.topgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;min-height:56px;align-items:center}
+.ts{display:flex;gap:12px;align-items:center}
+.ts .lbl{font-size:.85rem;color:#6b7280}
+.i{display:inline-block;width:22px;height:22px;background:#1d4ed8;border-radius:6px;position:relative}
+.i::after{content:"";position:absolute;inset:0;background:white;-webkit-mask:center/16px no-repeat;mask:center/16px no-repeat}
+.i.phone::after{-webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M6 2h5l1 5-3 2c1 2 3 4 5 5l2-3 5 1v5c0 1-1 2-2 2A16 16 0 0 1 4 4c0-1 1-2 2-2z"/></svg>');mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M6 2h5l1 5-3 2c1 2 3 4 5 5l2-3 5 1v5c0 1-1 2-2 2A16 16 0 0 1 4 4c0-1 1-2 2-2z"/></svg>')}
+.i.clock::after{-webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20zm1 5h-2v6l5 3 1-1-4-2z"/></svg>');mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20zm1 5h-2v6l5 3 1-1-4-2z"/></svg>')}
+.i.pin::after{-webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 2a7 7 0 0 0-7 7c0 6 7 13 7 13s7-7 7-13a7 7 0 0 0-7-7zm0 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>');mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 2a7 7 0 0 0-7 7c0 6 7 13 7 13s7-7 7-13a7 7 0 0 0-7-7zm0 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>')}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:40;background:#fff}
+.navrow{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;color:var(--ink);text-decoration:none}
+.menu a{margin:0 12px;color:var(--ink);font-weight:800;text-decoration:none}
+.menu a:hover{color:#1d4ed8}
+.lang button{border:none;background:#eef2ff;border-radius:8px;padding:6px 10px;margin-left:6px;cursor:pointer}
+.lang button:hover{background:#e0e7ff}
+.goldbar{height:52px;background:var(--beige);border-top:1px solid #d5c4a4;border-bottom:1px solid #d5c4a4}
+
+/* hero */
+.hero{padding:64px 0}
+.hgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:stretch}
+.hleft{background:var(--blue);color:#fff;border-radius:26px;padding:42px;position:relative;box-shadow:var(--shadow)}
+.hleft h1{font-size:46px;line-height:1.12;margin:0 0 10px}
+.hleft .lead{color:#e6edff;max-width:640px;margin:0 0 16px}
+.actions{display:flex;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:10px;border:1px solid transparent;font-weight:800;cursor:pointer;text-decoration:none}
+.btn.primary{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
+.btn.primary:hover{background:#1744c6}
+.btn.ghost{background:#fff;color:var(--ink);border-color:#e5e7eb}
+.btn.ghost:hover{border-color:#cfd6de}
+.hright{position:relative;border-radius:26px;overflow:hidden;border:1px solid #e5e7eb;background:#fff;box-shadow:var(--shadow)}
+.photo{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,#ffffff 0%,#f6f8fb 100%),
+    url("https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1600&auto=format&fit=crop") center/cover no-repeat;
+}
+.arc{position:absolute;right:-130px;bottom:-130px;width:440px;height:440px;border-radius:50%;background:#fff;border:28px solid var(--blue);opacity:.16}
+
+/* stats bar */
+.stats{background:var(--beige);padding:26px 0;border-top:1px solid #d7c6a6;border-bottom:1px solid #d7c6a6}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{text-align:center;font-weight:800;color:var(--blue)}
+.stat .big{font-size:34px;color:var(--blue-ink)}
+
+/* service cards */
+.services{padding:68px 0}
+.title{font-size:36px;margin:0 0 18px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.card{border:1px solid var(--line);border-radius:18px;padding:22px;background:#fff;box-shadow:0 10px 24px rgba(2,6,23,.04)}
+.icos{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.icos.beige{background:var(--beige)} .icos.blue{background:#17355f}
+.hrline{height:2px;width:150px;background:#d6c4a2;margin-top:12px}
+.i.mail::after{-webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M2 6h20v12H2zm10 5L2 6l20 0z"/></svg>');mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M2 6h20v12H2zm10 5L2 6l20 0z"/></svg>')}
+.i.doc::after{-webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M14 2H6a2 2 0 00-2 2v16l6-3 6 3V8z"/></svg>');mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M14 2H6a2 2 0 00-2 2v16l6-3 6 3V8z"/></svg>')}
+.i.chart::after{-webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M4 20h16v-2H4zm2-4h3v2H6zm5-6h3v8h-3zm5-4h3v12h-3z"/></svg>');mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M4 20h16v-2H4zm2-4h3v2H6zm5-6h3v8h-3zm5-4h3v12h-3z"/></svg>')}
+.i.cog::after{-webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 8a4 4 0 110 8 4 4 0 010-8z"/></svg>');mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 8a4 4 0 110 8 4 4 0 010-8z"/></svg>')}
+
+/* split */
+.split{padding:68px 0;border-top:1px solid var(--line)}
+.splitgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
+.sright{position:relative;border-radius:24px;overflow:hidden;border:1px solid #e5e7eb;background:#fff;box-shadow:var(--shadow)}
+.photo2{position:absolute;inset:0;background:
+  linear-gradient(180deg,#ffffff 0%,#f6f8fb 100%),
+  url("https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1600&auto=format&fit=crop") center/cover no-repeat;}
+.arc.top{top:-130px;bottom:auto}
+
+/* process */
+.process{padding:68px 0}
+.steps{padding-left:18px;margin:12px 0 0} .steps li{margin:8px 0}
+
+/* contact */
+.contact{padding:80px 0;background:#fff;border-top:1px solid var(--line)}
+.cicons{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:22px}
+.citem{text-align:center}
+.circle{width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.circle.beige{background:var(--beige)} .circle.blue{background:#17355f}
+.ctitle{font-weight:900}
+.cgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
+.form{display:flex;flex-direction:column;gap:12px}
+.form input,.form textarea{border:1px solid var(--line);border-radius:12px;padding:12px;font-size:16px}
+.chk{display:flex;gap:8px;align-items:center;color:#49566a}
+.map{border:1px solid var(--line);border-radius:20px;min-height:260px;position:relative;overflow:hidden}
+.map::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#e9efff,#f5f7fc)}
+
+/* footer */
+.footer{background:var(--blue);color:#cfe0ff;padding:32px 0;margin-top:40px}
+.fgrid{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:18px}
+.fbrand{font-weight:900;color:#fff;font-size:20px}
+
+/* responsive */
+@media (max-width:1000px){
+  .topgrid{grid-template-columns:1fr}
+  .hgrid,.splitgrid,.cgrid{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr 1fr}
+  .sgrid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .cards,.sgrid{grid-template-columns:1fr}
+  .hleft h1{font-size:36px}
+}
+</style>
 </head>
 <body>
 
-  <!-- TOP CONTACT STRIP -->
-  <div class="topstrip">
-    <div class="container topstrip__grid">
-      <div class="ts-item">
-        <span class="i i-phone"></span>
-        <div>
-          <div class="ts-label">Telefon</div>
-          <a href="tel:+4549402171">+45 49 40 21 71</a>
-        </div>
+<!-- TOP CONTACT -->
+<div class="topstrip">
+  <div class="container topgrid">
+    <div class="ts"><span class="i phone"></span><div><div class="lbl">Telefon</div><a href="tel:+4549402171">+45 49 40 21 71</a></div></div>
+    <div class="ts"><span class="i clock"></span><div><div class="lbl">Mandag–Fredag</div><div>09:00 – 17:00</div></div></div>
+    <div class="ts"><span class="i pin"></span><div><div class="lbl">Kontor</div><div>Danmark • Slovakiet</div></div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="container navrow">
+    <a class="brand" href="#">
+      <!-- egyszerű, letisztult logo helyett saját SVG-t vagy PNG-t tegyél -->
+      <strong>Connectix</strong>
+    </a>
+    <nav class="menu">
+      <a href="#home">Forside</a>
+      <a href="#why">Hvorfor os?</a>
+      <a href="#services">Ydelser</a>
+      <a href="#process">Proces</a>
+      <a href="#contact">Kontakt</a>
+    </nav>
+    <div class="lang"><button>DK</button><button>EN</button></div>
+  </div>
+  <div class="goldbar"></div>
+</header>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="container hgrid">
+    <div class="hleft reveal">
+      <h1>Slovakisk selskabsstiftelse<br><span style="color:#e6d7b9">og virksomhedsændringer</span></h1>
+      <p class="lead">Totalløsning <strong>€6.250</strong> — lovligt, sikkert og enkelt. Vi håndterer alt fra A til Z.</p>
+      <div class="actions">
+        <a href="#contact" class="btn primary">Kontakt os</a>
+        <a href="#services" class="btn ghost">Se ydelser</a>
       </div>
-      <div class="ts-item">
-        <span class="i i-clock"></span>
-        <div>
-          <div class="ts-label">Mandag–Fredag</div>
-          <div>09:00 – 17:00</div>
-        </div>
-      </div>
-      <div class="ts-item">
-        <span class="i i-pin"></span>
-        <div>
-          <div class="ts-label">Kontor</div>
-          <div>Danmark • Slovakiet</div>
-        </div>
-      </div>
+    </div>
+    <div class="hright reveal">
+      <div class="photo"></div><div class="arc"></div>
     </div>
   </div>
+</section>
 
-  <!-- NAV + GOLD BAR -->
-  <header class="nav">
-    <div class="container nav__row">
-      <a class="brand" href="#">
-        <svg width="26" height="26" viewBox="0 0 200 200" aria-hidden="true">
-          <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#2563EB"/><stop offset="100%" stop-color="#1D4ED8"/>
-          </linearGradient></defs>
-          <rect width="200" height="200" rx="36" fill="url(#g)"/>
-          <path d="M135 70a65 65 0 1 0 0 60" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
-        </svg>
-        <span>Connectix</span>
-      </a>
-      <nav class="menu">
-        <a href="#home">Forside</a>
-        <a href="#why">Hvorfor os?</a>
-        <a href="#services">Ydelser</a>
-        <a href="#process">Proces</a>
-        <a href="#contact">Kontakt</a>
-      </nav>
-      <div class="lang">
-        <button id="lang-da">DK</button><button id="lang-en">EN</button>
-      </div>
+<!-- STATS -->
+<section id="why" class="stats">
+  <div class="container sgrid">
+    <div class="stat reveal"><div class="big">99%</div><div>Kundetilfredshed</div></div>
+    <div class="stat reveal"><div class="big">170+</div><div>Aktive kunder</div></div>
+    <div class="stat reveal"><div class="big">450+</div><div>Stiftelser</div></div>
+    <div class="stat reveal"><div class="big">23 år</div><div>Erfaring</div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="services">
+  <div class="container">
+    <h2 class="title">Hvilke ydelser tilbyder vi?</h2>
+    <div class="cards">
+      <article class="card reveal">
+        <div class="icos beige"><span class="i cog"></span></div>
+        <h3>Virksomhedsstart</h3>
+        <p>Slovakisk selskab stiftelse, adresse, moms & skattereg.</p>
+        <div class="hrline"></div>
+      </article>
+      <article class="card reveal">
+        <div class="icos blue"><span class="i chart"></span></div>
+        <h3>Økonomirapporter</h3>
+        <p>Kvartalsvise KPI-kimenetek a nyugodt működéshez.</p>
+        <div class="hrline"></div>
+      </article>
+      <article class="card reveal">
+        <div class="icos beige"><span class="i doc"></span></div>
+        <h3>Skat & bogføring</h3>
+        <p>Enklere admin, olcsóbb könyvelés, teljes digital setup.</p>
+        <div class="hrline"></div>
+      </article>
     </div>
-    <div class="goldbar"></div>
-  </header>
+  </div>
+</section>
 
-  <!-- HERO -->
-  <section id="home" class="hero fade-in">
-    <div class="container hero__grid">
-      <div class="hero__left">
-        <h1 class="display">
-          Slovakisk selskabsstiftelse<br><span class="light">og virksomhedsændringer</span>
-        </h1>
-        <p class="lead">
-          Totalløsning <strong>€6.250</strong> — lovligt, sikkert og enkelt. Vi håndterer alt fra A til Z.
-        </p>
-        <div class="actions">
-          <a href="#contact" class="btn btn--primary">Kontakt os</a>
-          <a href="#services" class="btn btn--ghost">Tjenester</a>
-        </div>
-      </div>
-      <div class="hero__right">
-        <!-- Itt legyen a fotó: cseréld ki a background-image URL-t a style.css-ben ( .photo-bg ) -->
-        <div class="photo-bg"></div>
-        <div class="round-cut"></div>
-      </div>
+<!-- SPLIT -->
+<section class="split">
+  <div class="container splitgrid">
+    <div class="sleft">
+      <h2 class="title">Hvorfor vælge <span style="color:#17355f">Connectix</span>?</h2>
+      <p>Vi kommunikerer klart på dansk, figyeljük a jogszabályokat, és proaktívan jelezzük, ami a cégedet érinti. 
+      Negyedéves review = jobb eredmények, kevesebb stressz.</p>
     </div>
-  </section>
-
-  <!-- WHY / STAT BAR -->
-  <section id="why" class="stats slide-up">
-    <div class="container stats__grid">
-      <div class="stat"><div class="big">99%</div><div>Kundetilfredshed</div></div>
-      <div class="stat"><div class="big">170+</div><div>Aktive kunder</div></div>
-      <div class="stat"><div class="big">450+</div><div>Stiftelser</div></div>
-      <div class="stat"><div class="big">23 år</div><div>Erfaring</div></div>
+    <div class="sright reveal">
+      <div class="photo2"></div><div class="arc top"></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SERVICES ICON ROWS -->
-  <section id="services" class="services">
-    <div class="container">
-      <h2 class="title">Hvilke ydelser tilbyder vi?</h2>
-      <div class="sgrid">
-        <article class="service">
-          <div class="s-ico beige"><span class="i i-payroll"></span></div>
-          <h3>Bogføring & løn</h3>
-          <p>Fuld bogføring og lønadministration.</p>
-          <div class="readmore"></div>
-        </article>
-        <article class="service">
-          <div class="s-ico blue"><span class="i i-report"></span></div>
-          <h3>Økonomirapporter</h3>
-          <p>Målbar indsigt i virksomhedens resultater.</p>
-          <div class="readmore"></div>
-        </article>
-        <article class="service">
-          <div class="s-ico beige"><span class="i i-budget"></span></div>
-          <h3>Budgettering</h3>
-          <p>Planlægning tilpasset jeres mål og cash-flow.</p>
-          <div class="readmore"></div>
-        </article>
-      </div>
-    </div>
-  </section>
+<!-- PROCESS -->
+<section id="process" class="process">
+  <div class="container">
+    <h2 class="title">Mener — trin for trin</h2>
+    <ol class="steps">
+      <li><strong>Kontakt</strong> — udfyld formularen, visszahívás 24 órán belül.</li>
+      <li><strong>Dokumenter</strong> — mindent összegyűjtünk és előkészítünk.</li>
+      <li><strong>Rejse & underskrift</strong> — közjegyző + bejegyzés Szlovákiában.</li>
+      <li><strong>Aktivering</strong> — 72 órán belül üzemkész.</li>
+      <li><strong>Drift</strong> — digitális setup, ÁFA & adó.</li>
+    </ol>
+  </div>
+</section>
 
-  <!-- TEXT + IMAGE SPLIT (mint a mintán) -->
-  <section class="split slide-up">
-    <div class="container split__grid">
-      <div class="split__text">
-        <h2 class="title">
-          Hvorfor vælge <span class="brandtxt">Connectix</span>?
-        </h2>
-        <p>
-          Vi kommunikerer klart på dansk, overvåger lovændringer løbende, og giver proaktiv besked om alt,
-          der påvirker din virksomhed. Kvartalsvis gennemgang = bedre, roligere drift.
-        </p>
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="cicons">
+      <div class="citem reveal">
+        <div class="circle beige"><span class="i pin"></span></div>
+        <div class="ctitle">Adresse</div>
+        <div>Registreret kontor i Slovakiet</div>
       </div>
-      <div class="split__img">
-        <div class="photo-bg small"></div>
-        <div class="round-cut top"></div>
+      <div class="citem reveal">
+        <div class="circle blue"><span class="i phone"></span></div>
+        <div class="ctitle">Telefon</div>
+        <a href="tel:+4549402171">+45 49 40 21 71</a>
       </div>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
-  <section id="process" class="process">
-    <div class="container">
-      <h2 class="title">Mener — trin for trin</h2>
-      <ol class="steps">
-        <li><strong>Kontakt</strong> — udfyld formularen, vi ringer tilbage inden for 24 t.</li>
-        <li><strong>Dokumenter</strong> — vi indsamler og forbereder alt.</li>
-        <li><strong>Rejse & underskrift</strong> — notar & registrering i Slovakiet.</li>
-        <li><strong>Aktivering</strong> — driftsklar inden for 72 t.</li>
-        <li><strong>Drift</strong> — digital opsætning, moms & skat.</li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="contact">
-    <div class="container">
-      <div class="cicons">
-        <div class="citem">
-          <div class="circle beige"><span class="i i-pin"></span></div>
-          <div class="ctitle">Adresse</div>
-          <div>Registreret kontor i Slovakiet</div>
-        </div>
-        <div class="citem">
-          <div class="circle blue"><span class="i i-phone"></span></div>
-          <div class="ctitle">Telefon</div>
-          <a href="tel:+4549402171">+45 49 40 21 71</a>
-        </div>
-        <div class="citem">
-          <div class="circle beige"><span class="i i-mail"></span></div>
-          <div class="ctitle">E-mail</div>
-          <a href="mailto:sales.connectix@protonmail.com">sales.connectix@protonmail.com</a>
-        </div>
-      </div>
-
-      <div class="cgrid">
-        <form class="form">
-          <input type="text" placeholder="Navn *" required>
-          <input type="email" placeholder="E-mail *" required>
-          <textarea rows="6" placeholder="Besked"></textarea>
-          <label class="chk">
-            <input type="checkbox" required> Jeg accepterer databehandlingen (GDPR).
-          </label>
-          <button class="btn btn--primary" type="submit">Send besked</button>
-        </form>
-        <div class="mapbox">
-          <!-- tényleges Google Map helyett placeholder – cserélhető iframe-re -->
-          <div class="map-mock"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footer__grid">
-      <div>
-        <div class="fbrand">Connectix</div>
-        <div class="muted">© 2025 — Alle rettigheder forbeholdes.</div>
-      </div>
-      <div class="fcol">
-        <div class="muted">E-mail</div>
+      <div class="citem reveal">
+        <div class="circle beige"><span class="i mail"></span></div>
+        <div class="ctitle">E-mail</div>
         <a href="mailto:sales.connectix@protonmail.com">sales.connectix@protonmail.com</a>
       </div>
-      <div class="fcol">
-        <div class="muted">Domæne</div>
-        <div>connectix.dk</div>
-      </div>
     </div>
-  </footer>
 
+    <div class="cgrid">
+      <form class="form">
+        <input type="text" placeholder="Navn *" required>
+        <input type="email" placeholder="E-mail *" required>
+        <textarea rows="6" placeholder="Besked"></textarea>
+        <label class="chk"><input type="checkbox" required> Jeg accepterer databehandlingen (GDPR).</label>
+        <button class="btn primary" type="submit">Send besked</button>
+      </form>
+      <div class="map" title="Map placeholder"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container fgrid">
+    <div><div class="fbrand">Connectix</div><div class="sub">© 2025 — Alle rettigheder forbeholdes.</div></div>
+    <div><div class="sub">E-mail</div><a href="mailto:sales.connectix@protonmail.com">sales.connectix@protonmail.com</a></div>
+    <div><div class="sub">Domæne</div><div>connectix.dk</div></div>
+  </div>
+</footer>
+
+<script>
+const onScroll=()=>{
+  document.querySelectorAll('.reveal').forEach(el=>{
+    const r=el.getBoundingClientRect();
+    if(r.top<innerHeight-80) el.classList.add('seen');
+  });
+};
+addEventListener('scroll',onScroll); addEventListener('load',onScroll);
+</script>
 </body>
 </html>
