@@ -1,131 +1,48 @@
-:root{
-  /* Profitcentrum-hangulat */
-  --blue:#0b2e67;           /* sötétkék */
-  --beige:#cdb286;          /* bézs arany */
-  --ink:#0f172a;
-  --sub:#475569;
-  --line:#e7eaee;
-  --muted:#f6f8fb;
+// EN translations (Danish is default HTML)
+const t = {
+  en: {
+    ts_phone:"Phone", ts_hours:"Mon–Fri", ts_office:"Office",
+    nav_home:"Home", nav_services:"Services", nav_case:"Case", nav_process:"Process", nav_contact:"Contact",
+    hero_title:"Slovak company formation for Danish businesses",
+    hero_sub:"Turn-key solution €6,250 — legal, safe and simple. We handle A–Z.",
+    hero_cta:"Contact us", hero_more:"See package",
+    v1_t:"Lower corporate tax", v1_d:"10% in Slovakia vs. 22% in Denmark.",
+    v2_t:"Simpler administration", v2_d:"VAT & bookkeeping are cheaper and easier.",
+    v3_t:"All included", v3_d:"Lawyer, notary, fees, flights & setup.",
+    v4_t:"24/7 support", v4_d:"Danish/Slovak point of contact.",
+    s1:"Customer satisfaction", s2:"Active clients", s3:"Completed incorporations", s4:"Years of experience",
+    case_title:"Business case — Full package (€6,250)",
+    case_intro:"High taxes slow growth. We legally incorporate in Slovakia to reduce fixed costs while keeping Danish clients.",
+    inc_title:"All included",
+    inc_1:"Legal advisory & registration (lawyer/notary)",
+    inc_2:"Accounting & tax setup",
+    inc_3:"Government fees & notary",
+    inc_4:"Official documents in Danish",
+    inc_5:"Round-trip flights & airport assistance",
+    inc_6:"Registered office (optional residential address)",
+    inc_7:"VAT & tax registration",
+    inc_8:"Digital company setup",
+    inc_9:"24/7 agent support",
+    price_fix:"Fixed price", price_note:"incl. fees, notary, flights", price_cta:"Start now",
+    process_title:"Process — step by step",
+    p1_t:"Contact", p1_d:"we call back within 24 hours",
+    p2_t:"Documents", p2_d:"we gather and prepare everything",
+    p3_t:"Travel & signing", p3_d:"notary & registration in Slovakia",
+    p4_t:"Activation", p4_d:"operational within 72 hours",
+    p5_t:"Operations", p5_d:"digital setup, VAT & tax",
+    c_addr:"Address", c_phone:"Phone",
+    gdpr:"I accept data processing (GDPR).", send:"Send message"
+  }
+};
 
-  --radius:16px;
-}
+const $ = (s)=>document.querySelectorAll(s);
+$("#lang-en")[0]?.addEventListener("click", ()=>setLang("en"));
+$("#lang-da")[0]?.addEventListener("click", ()=>setLang("da"));
 
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{
-  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;
-  color:var(--ink); background:#fff; line-height:1.65;
-}
-.container{max-width:1180px;margin:0 auto;padding:0 28px}
-.muted{color:var(--sub)} .small{font-size:.9rem}
-
-/* Felső kontakt-sáv */
-.topstrip{border-bottom:1px solid var(--line); background:#fff}
-.topstrip__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:center;min-height:56px}
-.ts-item{display:flex;gap:12px;align-items:center}
-.ts-label{font-size:.85rem;color:#607089}
-.i{display:inline-block;width:22px;height:22px;background:#1d4ed8;border-radius:6px;position:relative}
-.i::after{content:"";position:absolute;inset:0;background:white;-webkit-mask-size:16px;mask-size:16px;-webkit-mask-position:center;mask-position:center;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
-.i-phone::after{ -webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M6 2h5l1 5-3 2c1 2 3 4 5 5l2-3 5 1v5c0 1-1 2-2 2A16 16 0 0 1 4 4c0-1 1-2 2-2z"/></svg>'); mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M6 2h5l1 5-3 2c1 2 3 4 5 5l2-3 5 1v5c0 1-1 2-2 2A16 16 0 0 1 4 4c0-1 1-2 2-2z'/></svg>"); }
-.i-clock::after{ -webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20zm1 5h-2v6l5 3 1-1-4-2z"/></svg>'); mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20zm1 5h-2v6l5 3 1-1-4-2z'/></svg>"); }
-.i-pin::after{ -webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 2a7 7 0 0 0-7 7c0 6 7 13 7 13s7-7 7-13a7 7 0 0 0-7-7zm0 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>'); mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M12 2a7 7 0 0 0-7 7c0 6 7 13 7 13s7-7 7-13a7 7 0 0 0-7-7zm0 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4z'/></svg>"); }
-
-/* NAV + bézs bar */
-.nav{background:#fff; position:sticky; top:0; z-index:40}
-.nav__row{display:flex;align-items:center;justify-content:space-between;height:70px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:800}
-.menu a{margin:0 12px;text-decoration:none;color:var(--ink);font-weight:600}
-.menu a:hover{color:#1d4ed8}
-.lang button{border:none;background:#eef2ff;padding:6px 10px;border-radius:8px;margin-left:6px;cursor:pointer}
-.lang button:hover{background:#e0e7ff}
-.goldbar{height:48px;background:var(--beige);border-top:1px solid #d8c7a7;border-bottom:1px solid #d8c7a7}
-
-/* HERO */
-.hero{background:#fff}
-.hero__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:38px;align-items:stretch;padding:64px 0}
-.hero__left{background:var(--blue);color:#fff;border-radius:24px;padding:38px;position:relative;overflow:hidden}
-.hero__title{font-size:46px;line-height:1.12;margin:0 0 12px}
-.hero__lead{font-size:18px;color:#e6edff;max-width:640px}
-.hero__actions{display:flex;gap:12px;margin-top:18px}
-.btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:10px;border:1px solid transparent;cursor:pointer;text-decoration:none;font-weight:700}
-.btn--primary{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
-.btn--primary:hover{background:#1744c6}
-.btn--ghost{background:#fff;color:var(--ink);border-color:#e5e7eb}
-.btn--ghost:hover{border-color:#cfd6de}
-.hero__right{position:relative;border-radius:24px;overflow:hidden;border:1px solid #e5e7eb;background:#fff}
-.photo-mock{
-  position:absolute; inset:0;
-  background:
-    radial-gradient(1200px 600px at 100% 0%, #eaf1ff 0%, transparent 60%),
-    linear-gradient(180deg,#ffffff 0%,#f6f8fb 100%);
-}
-.photo-mock::after{
-  /* “kerek sarok” félkör díszítés */
-  content:""; position:absolute; right:-120px; bottom:-120px; width:380px; height:380px;
-  background:#ffffff; border:26px solid var(--blue); border-radius:50%;
-  opacity:.15;
-}
-
-/* Values (ikon dobozok) */
-.values{background:#fff;padding:56px 0;border-top:1px solid var(--line)}
-.values__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-.vcard{border:1px solid var(--line);border-radius:18px;padding:20px;background:#fff}
-.v-icon{width:60px;height:60px;border-radius:50%;background:var(--beige);display:flex;align-items:center;justify-content:center;margin-bottom:10px}
-.i-tax::after{ -webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M3 3h18v4H3zm2 6h14v12H5z"/></svg>'); mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M3 3h18v4H3zm2 6h14v12H5z'/></svg>"); }
-.i-gear::after{ -webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 8a4 4 0 110 8 4 4 0 010-8z"/></svg>'); mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M12 8a4 4 0 110 8 4 4 0 010-8z'/></svg>"); }
-.i-doc::after{ -webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M14 2H6a2 2 0 00-2 2v16l6-3 6 3V8z"/></svg>'); mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M14 2H6a2 2 0 00-2 2v16l6-3 6 3V8z'/></svg>"); }
-.i-headset::after{ -webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 2a9 9 0 00-9 9v2a3 3 0 003 3h2v-6H6a6 6 0 1112 0h-2v6h2a3 3 0 003-3v-2a9 9 0 00-9-9z"/></svg>'); mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M12 2a9 9 0 00-9 9v2a3 3 0 003 3h2v-6H6a6 6 0 1112 0h-2v6h2a3 3 0 003-3v-2a9 9 0 00-9-9z'/></svg>"); }
-
-/* Stats sáv */
-.stats{background:var(--blue);color:#fff;padding:28px 0}
-.stats__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.stat{text-align:center}
-.big{font-size:34px;font-weight:900}
-
-/* Case / árblokk */
-.section{padding:80px 0}
-.section--border{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.narrow{max-width:900px}
-.title{font-size:32px;margin:0 0 8px}
-.eyebrow{font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:#7b7f86;margin:16px 0 8px}
-.case__grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;margin-top:14px}
-.list{margin:10px 0 0;padding-left:18px}
-.pricebox{border:1px solid var(--line);border-radius:16px;padding:20px;background:#fff;align-self:start}
-.price{font-size:42px;font-weight:900;margin:6px 0 8px}
-.btn--full{width:100%}
-
-/* Process */
-.steps{padding-left:18px;margin:10px 0 0}
-.steps li{margin:8px 0}
-
-/* Contact */
-.contact{background:#fff;padding:80px 0}
-.contact__icons{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:24px}
-.citem{text-align:center}
-.circle{width:72px;height:72px;border-radius:50%;background:var(--beige);display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
-.ci-title{font-weight:800}
-.i-mail::after{ -webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M2 6h20v12H2zm10 5L2 6l20 0z"/></svg>'); mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M2 6h20v12H2zm10 5L2 6l20 0z'/></svg>"); }
-
-.contact__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
-.form{display:flex;flex-direction:column;gap:12px}
-.form input,.form textarea{border:1px solid var(--line);border-radius:12px;padding:12px;font-size:16px}
-.chk{display:flex;gap:8px;align-items:center;color:var(--sub)}
-.mapbox{border:1px solid var(--line);border-radius:16px;min-height:260px;position:relative;overflow:hidden}
-.map-mock{position:absolute;inset:0;background:linear-gradient(180deg,#e9efff,#f5f7fc)}
-
-.footer{background:var(--blue);color:#cfe0ff;padding:32px 0;margin-top:40px}
-.footer__grid{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:18px;align-items:start}
-.fbrand{font-weight:900;color:#fff;font-size:20px}
-
-@media (max-width:1000px){
-  .topstrip__grid{grid-template-columns:1fr}
-  .hero__grid{grid-template-columns:1fr}
-  .values__grid{grid-template-columns:1fr 1fr}
-  .stats__grid{grid-template-columns:1fr 1fr}
-  .case__grid{grid-template-columns:1fr}
-  .contact__icons{grid-template-columns:1fr}
-  .contact__grid{grid-template-columns:1fr}
-}
-@media (max-width:640px){
-  .values__grid{grid-template-columns:1fr}
+function setLang(lang){
+  $("[data-i18n]").forEach(el=>{
+    const key = el.dataset.i18n;
+    if(lang==="en" && t.en[key]) el.textContent = t.en[key];
+    if(lang==="da"){ /* vissza dánra: az eredeti HTML a dán */ }
+  });
 }
