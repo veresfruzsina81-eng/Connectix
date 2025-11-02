@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connectix – Danske virksomheder i Slovakiet</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="navbar">
+    <div class="logo">
+      <img src="assets/logo.svg" alt="Connectix logo">
+      <span>Connectix</span>
+    </div>
+    <nav>
+      <a href="#home" data-i18n="nav_home">Hjem</a>
+      <a href="#case" data-i18n="nav_case">Case</a>
+      <a href="#process" data-i18n="nav_process">Proces</a>
+      <a href="#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="lang-switch">
+      <button id="lang-da">🇩🇰</button>
+      <button id="lang-en">🇬🇧</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="hero-text">
+      <h1 data-i18n="hero_title">Danske virksomheder i Slovakiet</h1>
+      <p data-i18n="hero_subtitle">Komplet løsning fra €6.250 – lovligt, sikkert og enkelt</p>
+      <a href="#contact" class="btn" data-i18n="hero_cta">Kontakt os nu</a>
+    </div>
+  </section>
+
+  <!-- Case Section -->
+  <section id="case" class="case">
+    <h2 data-i18n="case_title">Forretningscase – Totalløsning (€6.250)</h2>
+    <p data-i18n="case_text">
+      Mange danske virksomheder oplever, at høje skatter og administration hæmmer væksten. 
+      Vores løsning gør det muligt helt lovligt at stifte selskab i Slovakiet og reducere de faste omkostninger markant, 
+      mens du bevarer dine danske kunder – uden kompleksitet eller risiko.
+    </p>
+
+    <h3 data-i18n="case_included_title">Alt inkluderet:</h3>
+    <ul>
+      <li data-i18n="case_included_1">Juridisk rådgivning og registrering</li>
+      <li data-i18n="case_included_2">Bogholderi og skatte-setup</li>
+      <li data-i18n="case_included_3">Statlige gebyrer og notarbekræftelser</li>
+      <li data-i18n="case_included_4">Dansk oversættelse af alle dokumenter</li>
+      <li data-i18n="case_included_5">Returfly og lufthavn assistance</li>
+      <li data-i18n="case_included_6">Slovakisk adresse og evt. privat bolig</li>
+      <li data-i18n="case_included_7">Moms- og skatteregistrering</li>
+      <li data-i18n="case_included_8">Digital virksomhedsopsætning</li>
+      <li data-i18n="case_included_9">24/7 dansk/slovak support</li>
+    </ul>
+  </section>
+
+  <!-- Process -->
+  <section id="process" class="process">
+    <h2 data-i18n="process_title">Proces – trin for trin</h2>
+    <ol>
+      <li data-i18n="process_1">Kontakt os via hjemmesiden</li>
+      <li data-i18n="process_2">Vi forbereder alle nødvendige dokumenter</li>
+      <li data-i18n="process_3">Du rejser til Slovakiet og underskriver</li>
+      <li data-i18n="process_4">Selskabet aktiveres inden for 72 timer</li>
+      <li data-i18n="process_5">Vi hjælper med digital opsætning og moms</li>
+    </ol>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <h2 data-i18n="contact_title">Kontakt os</h2>
+    <form>
+      <input type="text" placeholder="Navn" required>
+      <input type="email" placeholder="E-mail" required>
+      <textarea placeholder="Besked" rows="5"></textarea>
+      <label class="gdpr">
+        <input type="checkbox" required>
+        <span data-i18n="contact_gdpr">Jeg accepterer databehandlingen i henhold til GDPR.</span>
+      </label>
+      <button type="submit" class="btn" data-i18n="contact_submit">Send besked</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Connectix – Alle rettigheder forbeholdes.</p>
+    <p><a href="mailto:sales.connectix@protonmail.com">sales.connectix@protonmail.com</a></p>
+  </footer>
+
+</body>
+</html>
