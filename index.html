@@ -1,96 +1,237 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connectix – Danske virksomheder i Slovakiet</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Connectix — Danske virksomheder i Slovakiet</title>
+  <link rel="stylesheet" href="style.css"/>
   <script defer src="script.js"></script>
 </head>
 <body>
-
-  <!-- Header -->
-  <header class="navbar">
-    <div class="logo">
-      <img src="assets/logo.svg" alt="Connectix logo">
-      <span>Connectix</span>
-    </div>
-    <nav>
-      <a href="#home" data-i18n="nav_home">Hjem</a>
-      <a href="#case" data-i18n="nav_case">Case</a>
-      <a href="#process" data-i18n="nav_process">Proces</a>
-      <a href="#contact" data-i18n="nav_contact">Kontakt</a>
-    </nav>
-    <div class="lang-switch">
-      <button id="lang-da">🇩🇰</button>
-      <button id="lang-en">🇬🇧</button>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav__inner container">
+      <a href="#" class="brand">
+        <!-- Inline logo (nincs asset-hiba) -->
+        <svg width="28" height="28" viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#2563EB"/>
+              <stop offset="100%" stop-color="#1D4ED8"/>
+            </linearGradient>
+          </defs>
+          <rect width="200" height="200" rx="36" fill="url(#g)"/>
+          <path d="M135 70a65 65 0 1 0 0 60" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
+          <circle cx="135" cy="100" r="8" fill="#fff"/>
+        </svg>
+        <span>Connectix</span>
+      </a>
+      <nav class="menu">
+        <a href="#home" data-i18n="nav_home">Hjem</a>
+        <a href="#case" data-i18n="nav_case">Case</a>
+        <a href="#process" data-i18n="nav_process">Proces</a>
+        <a href="#contact" data-i18n="nav_contact">Kontakt</a>
+      </nav>
+      <div class="lang">
+        <button id="lang-da" aria-label="Dansk">DK</button>
+        <span>•</span>
+        <button id="lang-en" aria-label="English">GB</button>
+      </div>
     </div>
   </header>
 
-  <!-- Hero -->
+  <!-- HERO -->
   <section id="home" class="hero">
-    <div class="hero-text">
-      <h1 data-i18n="hero_title">Danske virksomheder i Slovakiet</h1>
-      <p data-i18n="hero_subtitle">Komplet løsning fra €6.250 – lovligt, sikkert og enkelt</p>
-      <a href="#contact" class="btn" data-i18n="hero_cta">Kontakt os nu</a>
+    <div class="hero__bg"></div>
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <h1 data-i18n="hero_title">Danske virksomheder i Slovakiet</h1>
+        <p class="lead" data-i18n="hero_subtitle">
+          Komplet totalløsning fra <strong>€6.250</strong> — lovligt, sikkert og enkelt.
+        </p>
+        <div class="cta">
+          <a href="#contact" class="btn btn--primary" data-i18n="hero_cta">Kontakt os nu</a>
+          <a href="#case" class="btn btn--ghost" data-i18n="hero_more">Se pakken</a>
+        </div>
+        <div class="trust">
+          <div class="trust__item">
+            <span class="icon shield"></span>
+            <span data-i18n="trust_1">Advokat-understøttet</span>
+          </div>
+          <div class="trust__item">
+            <span class="icon clock"></span>
+            <span data-i18n="trust_2">Aktiv på 72 timer</span>
+          </div>
+          <div class="trust__item">
+            <span class="icon support"></span>
+            <span data-i18n="trust_3">24/7 dansk/slovak support</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero__card">
+        <div class="pricecard">
+          <div class="pricecard__head">
+            <h3 data-i18n="pkg_title">Fuldt service-setup</h3>
+            <p data-i18n="pkg_sub">Alt inkluderet — én fast pris</p>
+          </div>
+          <div class="price">
+            <span class="amt">€6.250</span>
+            <span class="note" data-i18n="pkg_note">inkl. afgifter, notar, fly</span>
+          </div>
+          <ul class="checks">
+            <li data-i18n="inc_1">Juridisk registrering</li>
+            <li data-i18n="inc_2">Bogholderi & skatte-setup</li>
+            <li data-i18n="inc_3">Moms/skat registrering</li>
+            <li data-i18n="inc_4">Officielle dokumenter på dansk</li>
+            <li data-i18n="inc_5">Returfly & lufthavn-assistance</li>
+            <li data-i18n="inc_6">Selskabsadresse (option privat)</li>
+            <li data-i18n="inc_7">Digital virksomhedsopsætning</li>
+            <li data-i18n="inc_8">24/7 agent-support</li>
+          </ul>
+          <a href="#contact" class="btn btn--primary" data-i18n="pkg_cta">Start nu</a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Case Section -->
+  <!-- SHORT VALUE -->
+  <section class="values">
+    <div class="container values__grid">
+      <div class="value">
+        <h4 data-i18n="val_1_t">Lavere selskabsskat</h4>
+        <p data-i18n="val_1_d">10% i Slovakiet vs. 22% i Danmark — dokumenteret besparelse.</p>
+      </div>
+      <div class="value">
+        <h4 data-i18n="val_2_t">Lavere arbejdsgiverbidrag</h4>
+        <p data-i18n="val_2_d">Typisk 1–2% mod 8–12% i DK — bedre margen.</p>
+      </div>
+      <div class="value">
+        <h4 data-i18n="val_3_t">Enklere administration</h4>
+        <p data-i18n="val_3_d">Moms og bogføring er markant lettere og billigere.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE -->
   <section id="case" class="case">
-    <h2 data-i18n="case_title">Forretningscase – Totalløsning (€6.250)</h2>
-    <p data-i18n="case_text">
-      Mange danske virksomheder oplever, at høje skatter og administration hæmmer væksten. 
-      Vores løsning gør det muligt helt lovligt at stifte selskab i Slovakiet og reducere de faste omkostninger markant, 
-      mens du bevarer dine danske kunder – uden kompleksitet eller risiko.
-    </p>
+    <div class="container narrow">
+      <h2 class="center" data-i18n="case_title">Forretningscase — Totalløsning</h2>
+      <p class="center muted" data-i18n="case_intro">
+        Vi håndterer alt fra A til Z, så du modtager et fuldt funktionsdygtigt slovakisk selskab —
+        juridisk, økonomisk og administrativt klar til drift.
+      </p>
 
-    <h3 data-i18n="case_included_title">Alt inkluderet:</h3>
-    <ul>
-      <li data-i18n="case_included_1">Juridisk rådgivning og registrering</li>
-      <li data-i18n="case_included_2">Bogholderi og skatte-setup</li>
-      <li data-i18n="case_included_3">Statlige gebyrer og notarbekræftelser</li>
-      <li data-i18n="case_included_4">Dansk oversættelse af alle dokumenter</li>
-      <li data-i18n="case_included_5">Returfly og lufthavn assistance</li>
-      <li data-i18n="case_included_6">Slovakisk adresse og evt. privat bolig</li>
-      <li data-i18n="case_included_7">Moms- og skatteregistrering</li>
-      <li data-i18n="case_included_8">Digital virksomhedsopsætning</li>
-      <li data-i18n="case_included_9">24/7 dansk/slovak support</li>
-    </ul>
+      <div class="case__grid">
+        <div class="card">
+          <h3 data-i18n="case_bg_t">Baggrund</h3>
+          <p data-i18n="case_bg_d">
+            Høje skatter, afgifter og tung administration hæmmer vækst. Løsningen er
+            lovlig selskabsstiftelse i Slovakiet — mens du bevarer dine danske kunder.
+          </p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="case_concept_t">Koncept</h3>
+          <p data-i18n="case_concept_d">
+            Én samlet pakke til fast pris. Vi leverer dokumenter, registreringer, adresser,
+            fly og digital opsætning — alt inkluderet.
+          </p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="case_includes_t">Indhold</h3>
+          <ul class="checks checks--tight">
+            <li data-i18n="inc_1">Juridisk registrering</li>
+            <li data-i18n="inc_2">Bogholderi & skatte-setup</li>
+            <li data-i18n="inc_3">Moms/skat registrering</li>
+            <li data-i18n="inc_4">Dokumenter på dansk</li>
+            <li data-i18n="inc_5">Returfly & support</li>
+            <li data-i18n="inc_6">Selskabsadresse</li>
+            <li data-i18n="inc_7">Digital opsætning</li>
+            <li data-i18n="inc_8">24/7 support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Process -->
+  <!-- PROCESS -->
   <section id="process" class="process">
-    <h2 data-i18n="process_title">Proces – trin for trin</h2>
-    <ol>
-      <li data-i18n="process_1">Kontakt os via hjemmesiden</li>
-      <li data-i18n="process_2">Vi forbereder alle nødvendige dokumenter</li>
-      <li data-i18n="process_3">Du rejser til Slovakiet og underskriver</li>
-      <li data-i18n="process_4">Selskabet aktiveres inden for 72 timer</li>
-      <li data-i18n="process_5">Vi hjælper med digital opsætning og moms</li>
-    </ol>
+    <div class="container">
+      <h2 class="center" data-i18n="process_title">Proces — trin for trin</h2>
+      <div class="timeline">
+        <div class="step">
+          <span class="step__icon form"></span>
+          <div>
+            <h4 data-i18n="proc_1_t">1) Kontakt</h4>
+            <p data-i18n="proc_1_d">Send formularen — vi ringer tilbage inden for 24 timer.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step__icon docs"></span>
+          <div>
+            <h4 data-i18n="proc_2_t">2) Dokumenter</h4>
+            <p data-i18n="proc_2_d">Vi indsamler og forbereder alt, der kræves.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step__icon plane"></span>
+          <div>
+            <h4 data-i18n="proc_3_t">3) Rejse & underskrift</h4>
+            <p data-i18n="proc_3_d">Du flyver til Slovakiet — notar & registrering.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step__icon rocket"></span>
+          <div>
+            <h4 data-i18n="proc_4_t">4) Aktivering</h4>
+            <p data-i18n="proc_4_d">Selskabet er driftsklar inden for 72 timer.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step__icon gear"></span>
+          <div>
+            <h4 data-i18n="proc_5_t">5) Drift</h4>
+            <p data-i18n="proc_5_d">Digital opsætning, moms & skatte-indberetning — klar til start.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Contact -->
+  <!-- CONTACT -->
   <section id="contact" class="contact">
-    <h2 data-i18n="contact_title">Kontakt os</h2>
-    <form>
-      <input type="text" placeholder="Navn" required>
-      <input type="email" placeholder="E-mail" required>
-      <textarea placeholder="Besked" rows="5"></textarea>
-      <label class="gdpr">
-        <input type="checkbox" required>
-        <span data-i18n="contact_gdpr">Jeg accepterer databehandlingen i henhold til GDPR.</span>
-      </label>
-      <button type="submit" class="btn" data-i18n="contact_submit">Send besked</button>
-    </form>
+    <div class="container">
+      <div class="contact__wrap">
+        <div class="contact__card">
+          <h2 data-i18n="contact_title">Kontakt os</h2>
+          <form>
+            <input type="text" placeholder="Navn" required />
+            <input type="email" placeholder="E-mail" required />
+            <textarea rows="5" placeholder="Besked"></textarea>
+            <label class="chk">
+              <input type="checkbox" required />
+              <span data-i18n="contact_gdpr">Jeg accepterer databehandlingen (GDPR).</span>
+            </label>
+            <button type="submit" class="btn btn--primary" data-i18n="contact_submit">Send besked</button>
+          </form>
+        </div>
+        <div class="contact__info">
+          <div class="info">
+            <h4>Connectix</h4>
+            <p><strong>E-mail:</strong> <a href="mailto:sales.connectix@protonmail.com">sales.connectix@protonmail.com</a></p>
+            <p><strong>Domæne:</strong> connectix.dk (under registrering)</p>
+            <p class="muted" data-i18n="contact_note">Vi svarer normalt inden for 24 timer.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer class="footer">
-    <p>© 2025 Connectix – Alle rettigheder forbeholdes.</p>
-    <p><a href="mailto:sales.connectix@protonmail.com">sales.connectix@protonmail.com</a></p>
+    <div class="container">
+      <p>© 2025 Connectix</p>
+      <p class="muted">Alle rettigheder forbeholdes.</p>
+    </div>
   </footer>
-
 </body>
 </html>
