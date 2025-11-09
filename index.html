@@ -1,1 +1,243 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Horváth Tamás ❤ Kanalas Mariann</title>
+<meta name="description" content="Horváth Tamás és Kanalas Mariann – szerelmes portfólió, történetünk, fotók, idővonal." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff5f8;
+  --card:#ffffff;
+  --ink:#2b2730;
+  --muted:#7b6f7f;
+  --primary:#ff4d6d;
+  --primary-dark:#e33b59;
+  --accent:#ffd6e0;
+  --ring:0 0 0 6px rgba(255,77,109,.12);
+  --radius:20px;
+  --shadow:0 20px 60px rgba(43,39,48,.12);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  color:var(--ink); background:radial-gradient(1200px 900px at 10% -10%, #ffe0ea 0%, #fff5f8 40%, #fff 70%);
+  overflow-x:hidden;
+}
+a{color:var(--primary); text-decoration:none}
+.container{max-width:1100px; margin:0 auto; padding:20px}
+.header{
+  position:sticky; top:0; z-index:30; backdrop-filter:blur(8px);
+  background:linear-gradient(180deg, rgba(255,245,248,.85), rgba(255,245,248,.65));
+  border-bottom:1px solid #ffe3ec;
+}
+.header-inner{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0}
+.logo{display:flex; align-items:center; gap:12px}
+.heart-logo{width:28px; height:28px; color:var(--primary)}
+h1{font-size:18px; margin:0}
+.cta{display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:999px; border:1px solid var(--primary); color:var(--primary); background:#fff}
+.cta:hover{box-shadow:var(--ring)}
 
+.hero{
+  position:relative; padding:48px 0 24px 0;
+}
+.title{
+  text-align:center;
+  font-weight:700; font-size:38px; line-height:1.1;
+}
+.subtitle{ text-align:center; color:var(--muted); margin-top:6px; }
+
+.hero-card{
+  margin:28px auto 0; display:grid; gap:20px;
+  grid-template-columns:1fr 1fr; align-items:center;
+  background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:20px;
+  border:1px solid #ffe1ea;
+}
+@media (max-width:900px){ .hero-card{grid-template-columns:1fr} }
+
+.pair{
+  display:grid; grid-template-columns:1fr 1fr; gap:14px;
+}
+.pair figure{
+  margin:0; position:relative; border-radius:16px; overflow:hidden;
+  border:1px solid #ffd4e0; box-shadow:0 10px 30px rgba(255,77,109,.15);
+}
+.pair img{width:100%; height:280px; object-fit:cover; display:block; transition:transform .6s ease}
+.pair figure:hover img{transform:scale(1.05)}
+.pair figcaption{
+  position:absolute; inset:auto 0 0 0; padding:10px 12px;
+  background:linear-gradient(180deg, transparent, rgba(0,0,0,.35));
+  color:#fff; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,.5);
+}
+
+/* szívecskék animáció */
+.hearts{position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:-1}
+.heart{
+  position:absolute; bottom:-120px; font-size:18px; color:var(--primary);
+  opacity:.9; filter:drop-shadow(0 10px 10px rgba(255,77,109,.25));
+  animation:rise linear forwards;
+}
+@keyframes rise{
+  from{transform:translateY(0) scale(.8) rotate(0deg); opacity:.0}
+  to{transform:translateY(-120vh) scale(1.15) rotate(18deg); opacity:1}
+}
+
+/* idővonal */
+.section{margin:36px 0}
+.section h2{font-size:26px; margin:0 0 12px}
+.timeline{position:relative; padding-left:22px}
+.timeline:before{content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background:#ffd3df}
+.step{position:relative; background:var(--card); border:1px solid #ffe1ea; border-radius:14px; padding:14px; margin:12px 0; box-shadow:0 10px 30px rgba(0,0,0,.05)}
+.step:before{
+  content:""; position:absolute; left:-12px; top:18px; width:10px; height:10px; border-radius:50%;
+  background:var(--primary); box-shadow:0 0 0 4px #ffeaf0;
+}
+.step small{color:var(--muted)}
+
+/* galéria */
+.gallery{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:12px;
+}
+@media (max-width:900px){ .gallery{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:560px){ .gallery{grid-template-columns:1fr} }
+.gallery img{width:100%; height:230px; object-fit:cover; border-radius:14px; border:1px solid #ffe1ea}
+
+/* lábléc */
+.footer{
+  margin:40px 0 24px; text-align:center; color:var(--muted);
+}
+
+/* mini pill */
+.pill{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 12px; border-radius:999px; background:#fff; border:1px solid #ffd7e3;
+}
+.pill svg{width:16px; height:16px; color:var(--primary)}
+
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <div class="logo">
+      <svg class="heart-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-6.7-4.6-9.4-7.3C-0.7 11 1 6.3 4.7 5.4 7 4.8 8.9 5.9 10 7.3c1.1-1.4 3-2.5 5.3-1.9C19 6.3 20.7 11 21.4 13.7 18.7 16.4 12 21 12 21z"/></svg>
+      <h1>Horváth Tamás ❤ Kanalas Mariann</h1>
+    </div>
+    <a class="cta" href="#galeria" aria-label="Ugrás a galériához">📸 Galéria</a>
+  </div>
+</header>
+
+<section class="hero container">
+  <div class="title">„Mindig voltunk, most már <span style="color:var(--primary)">egy</span>ek vagyunk.”</div>
+  <div class="subtitle">Két szív, két történet, egy közös út.</div>
+
+  <div class="hero-card">
+    <div class="pair">
+      <figure>
+        <img src="tamas.jpg" alt="Horváth Tamás">
+        <figcaption>Horváth Tamás</figcaption>
+      </figure>
+      <figure>
+        <img src="mariann.jpg" alt="Kanalas Mariann">
+        <figcaption>Kanalas Mariann</figcaption>
+      </figure>
+    </div>
+
+    <div>
+      <div class="pill" style="margin-bottom:12px">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-6.7-4.6-9.4-7.3C-0.7 11 1 6.3 4.7 5.4 7 4.8 8.9 5.9 10 7.3c1.1-1.4 3-2.5 5.3-1.9C19 6.3 20.7 11 21.4 13.7 18.7 16.4 12 21 12 21z"/></svg>
+        Szerelem & történetünk
+      </div>
+      <p style="margin:0 0 10px; color:var(--muted)">
+        Nem a tökéletes pillanatokból, hanem a közösen megélt percekből épül a mi történetünk.
+      </p>
+      <ul style="padding-left:18px; margin:0; line-height:1.9">
+        <li>Egymás legjobb barátai 💫</li>
+        <li>Utak, kávék, nevetések – és sok-sok fotó 📷</li>
+        <li>Közös célok, közös álmok – egymás mellett 🌙</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- szívecskék -->
+  <div class="hearts" id="hearts"></div>
+</section>
+
+<section class="section container" id="tortenet">
+  <h2>Idővonalunk</h2>
+  <div class="timeline">
+    <div class="step">
+      <strong>Első találkozás</strong> — <small>„Amikor minden ismerősnek tűnt.”</small>
+    </div>
+    <div class="step">
+      <strong>Az első közös utunk</strong> — <small>Azóta is jövünk-megyünk, együtt.</small>
+    </div>
+    <div class="step">
+      <strong>Közös tervek</strong> — <small>Otthon, munka, álmok – egy irányban.</small>
+    </div>
+    <div class="step">
+      <strong>Ma</strong> — <small>„Néha elég, ha fogod a kezem.”</small>
+    </div>
+  </div>
+</section>
+
+<section class="section container" id="galeria">
+  <h2>Galéria</h2>
+  <p class="muted" style="margin-top:2px">Kedvenc pillanataink – szívek keretezik, idő őrzi.</p>
+  <div class="gallery" style="margin-top:12px">
+    <img src="tamas.jpg" alt="Tamás portré">
+    <img src="mariann.jpg" alt="Mariann portré">
+    <img src="tamas.jpg" alt="Tamás – hangulat">
+    <img src="mariann.jpg" alt="Mariann – hangulat">
+    <img src="tamas.jpg" alt="Tamás – mosoly">
+    <img src="mariann.jpg" alt="Mariann – mosoly">
+  </div>
+</section>
+
+<section class="section container">
+  <h2>Üzenet egymásnak</h2>
+  <blockquote style="margin:12px 0 0; padding:16px; border-radius:16px; border:1px solid #ffe1ea; background:#fff; box-shadow:var(--shadow); color:#4d4252">
+    „Nem kereslek – megtaláltalak. Nem kérlek – választalak. Nem várok – melletted maradok.”
+  </blockquote>
+</section>
+
+<footer class="footer">
+  <div>© <span id="year"></span> Horváth Tamás ❤ Kanalas Mariann</div>
+  <div style="margin-top:6px"><a href="#tortenet">Történetünk</a> · <a href="#galeria">Galéria</a></div>
+</footer>
+
+<script>
+/* év */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* szívecskék generálása */
+const heartsBox = document.getElementById('hearts');
+const HEARTS = 26;
+for(let i=0;i<HEARTS;i++){
+  const h = document.createElement('div');
+  h.className = 'heart';
+  h.textContent = '❤';
+  const size = 14 + Math.random()*18;
+  h.style.fontSize = size+'px';
+  h.style.left = (Math.random()*100)+'%';
+  h.style.animationDuration = (8+Math.random()*8)+'s';
+  h.style.animationDelay = (Math.random()*6)+'s';
+  h.style.opacity = 0.66 + Math.random()*0.34;
+  heartsBox.appendChild(h);
+}
+
+/* smooth scroll */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href').slice(1);
+    const el=document.getElementById(id);
+    if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+  })
+});
+</script>
+</body>
+</html>
