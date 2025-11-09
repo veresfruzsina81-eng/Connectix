@@ -1,74 +1,88 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TikTok – Demecser kiírás</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horváth Dóra – Demecser vashulladékszedő</title>
   <style>
-    body { font-family: Arial, sans-serif; background:#f7f7f7; margin:0; padding:40px; }
-    .card { background:#fff; max-width:520px; margin:0 auto; padding:24px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,.08); }
-    .row { display:flex; gap:8px; }
-    input { flex:1; padding:10px 12px; font-size:16px; border:1px solid #ccc; border-radius:8px; }
-    button { padding:10px 16px; font-size:16px; border:0; border-radius:8px; background:#d4af37; color:#fff; cursor:pointer; }
-    button:disabled { opacity:.6; cursor:not-allowed; }
-    #eredmeny, #alreg { margin-top:16px; font-size:16px; line-height:1.6; }
-    .mutat { display:inline-block; }
-    .rejtes { display:none; }
-    .mono { font-family: Consolas, Menlo, Monaco, monospace; }
+    body {
+      font-family: "Comic Sans MS", cursive;
+      background: radial-gradient(circle, #ffd700 0%, #fff 100%);
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      margin-top: 40px;
+    }
+    img {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid #ff6600;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+    h1 {
+      color: #333;
+      font-size: 2em;
+      margin-top: 20px;
+      text-shadow: 2px 2px #ffcc00;
+    }
+    h2 {
+      color: #777;
+      font-weight: normal;
+      margin-top: 5px;
+    }
+    .desc {
+      background: #fff8dc;
+      display: inline-block;
+      margin-top: 20px;
+      padding: 15px 25px;
+      border-radius: 10px;
+      border: 2px dashed #ff6600;
+      font-size: 18px;
+      max-width: 400px;
+      line-height: 1.6;
+    }
+    .btn {
+      margin-top: 30px;
+      background: #ff6600;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn:hover {
+      transform: scale(1.1);
+      background: #ff4500;
+    }
+    footer {
+      margin-top: 50px;
+      font-size: 14px;
+      color: #666;
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h2>TikTok profil kiírás</h2>
-    <div class="row">
-      <input id="profil" type="text" placeholder="Írd be a TikTok profil nevét (pl. gerakkrisztian)"/>
-      <button id="mehetBtn" type="button">Mehet</button>
+
+  <div class="container">
+    <img src="dora.jpg" alt="Horváth Dóra">
+    <h1>Horváth Dóra</h1>
+    <h2>Demecser hivatalos vashulladékszedő</h2>
+    <div class="desc">
+      <p>💪 Kiemelkedő tapasztalat a fémgyűjtés terén.</p>
+      <p>🚜 Egyedül képes elhúzni egy rozsdás mosógépet.</p>
+      <p>♻️ 2024-ben elnyerte a „Demecser Aranyvas” díjat.</p>
     </div>
-
-    <div id="eredmeny"></div>
-
-    <button id="alregBtn" class="rejtes" type="button">Alregisztráció</button>
-    <div id="alreg" class="mono"></div>
+    <button class="btn" onclick="alert('Gratulálunk Dóri, most már híres vagy az interneten! 🤣')">
+      Portfólió megtekintése
+    </button>
+    <footer>© 2025 Horváth Dóra Kft. – Vashulladékban az erő!</footer>
   </div>
 
-  <!-- A script defer-rel töltődik, így a DOM már kész, mire fut -->
-  <script defer>
-    (function() {
-      const profilInput = document.getElementById('profil');
-      const mehetBtn    = document.getElementById('mehetBtn');
-      const eredmeny    = document.getElementById('eredmeny');
-      const alregBtn    = document.getElementById('alregBtn');
-      const alregBox    = document.getElementById('alreg');
-
-      // MEHET gomb logika
-      mehetBtn.addEventListener('click', function() {
-        const nev = (profilInput.value || '').trim();
-
-        if (!nev) {
-          eredmeny.textContent = 'Kérlek, add meg a TikTok profil nevét!';
-          alregBtn.classList.add('rejtes');  // biztosan tűnjön el
-          alregBox.textContent = '';
-          return;
-        }
-
-        // Kiírás
-        eredmeny.innerHTML =
-          '<strong>@' + nev + '</strong><br/>Magyarország / Demecser<br/>Április 24 • 23:00';
-
-        // Alregisztráció gomb megjelenítése
-        alregBtn.classList.remove('rejtes');
-      });
-
-      // ALREGISZTRÁCIÓ gomb logika
-      alregBtn.addEventListener('click', function() {
-        alregBox.textContent = '@gerakkrisztian : @lakatosbeatrix451';
-      });
-
-      // Enter megnyomására is működjön
-      profilInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') mehetBtn.click();
-      });
-    })();
-  </script>
 </body>
 </html>
