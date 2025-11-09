@@ -1,382 +1,89 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="hu">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Connectix — Slovakisk selskabsstiftelse</title>
-<meta name="description" content="Lovlig, sikker og enkel stiftelse af slovakisk selskab for danske virksomheder — fuld pakke €6.250.">
-<style>
-:root{
-  --blue:#0b2e67; --blue-2:#17355f; --beige:#cdb286;
-  --ink:#0e1b2b; --sub:#5b6778; --line:#e7eaee; --muted:#f6f8fb;
-  --r:22px; --shadow:0 18px 40px rgba(2,6,23,.08),0 6px 16px rgba(2,6,23,.06);
-}
-*{box-sizing:border-box} html,body{margin:0;padding:0}
-body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--ink);background:#fff;line-height:1.65}
-a{color:#1d4ed8;text-decoration:none} a:hover{text-decoration:underline}
-.container{max-width:1180px;margin:0 auto;padding:0 24px}
-h1,h2,h3{letter-spacing:-.01em}
-small{color:#667287}
-
-/* anim */
-@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-.reveal{opacity:0;transform:translateY(16px)} .seen{opacity:1;transform:none;transition:.6s}
-
-/* top strip */
-.top{border-bottom:1px solid var(--line);background:#fff}
-.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;min-height:58px;align-items:center}
-.ti{display:flex;gap:12px;align-items:center}
-.i{width:22px;height:22px;border-radius:6px;background:#1d4ed8;position:relative}
-.i::after{content:"";position:absolute;inset:0;background:#fff;-webkit-mask:center/16px no-repeat;mask:center/16px no-repeat}
-.i.phone::after{-webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M6 2h5l1 5-3 2c1 2 3 4 5 5l2-3 5 1v5c0 1-1 2-2 2A16 16 0 0 1 4 4c0-1 1-2 2-2z"/></svg>');mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M6 2h5l1 5-3 2c1 2 3 4 5 5l2-3 5 1v5c0 1-1 2-2 2A16 16 0 0 1 4 4c0-1 1-2 2-2z'/></svg>")}
-.i.clock::after{-webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20zm1 5h-2v6l5 3 1-1-4-2z"/></svg>');mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20zm1 5h-2v6l5 3 1-1-4-2z'/></svg>")}
-.i.pin::after{-webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 2a7 7 0 0 0-7 7c0 6 7 13 7 13s7-7 7-13a7 7 0 0 0-7-7zm0 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>');mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M12 2a7 7 0 0 0-7 7c0 6 7 13 7 13s7-7 7-13a7 7 0 0 0-7-7zm0 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4z'/></svg>")}
-
-/* nav */
-.nav{position:sticky;top:0;z-index:40;background:#fff}
-.nrow{display:flex;align-items:center;justify-content:space-between;height:74px}
-.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:900}
-.brand img{height:28px}
-.menu a{margin:0 12px;color:var(--ink);font-weight:800}
-.menu a:hover{color:#1d4ed8}
-.lang button{border:none;background:#eef2ff;border-radius:8px;padding:6px 10px;margin-left:6px;cursor:pointer}
-.lang button.active{background:#dbe4ff}
-.gold{height:52px;background:var(--beige);border-top:1px solid #d5c4a4;border-bottom:1px solid #d5c4a4}
-
-/* hero */
-.hero{padding:64px 0}
-.hgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:stretch}
-.hleft{background:var(--blue);color:#fff;border-radius:26px;padding:44px;position:relative;box-shadow:var(--shadow)}
-.hleft h1{font-size:46px;line-height:1.12;margin:0 0 10px}
-.hleft .lead{color:#e6edff;max-width:640px;margin:0 0 16px}
-.actions{display:flex;gap:12px}
-.btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:10px;border:1px solid transparent;font-weight:800;text-decoration:none}
-.btn.primary{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
-.btn.primary:hover{background:#1744c6}
-.btn.ghost{background:#fff;color:var(--ink);border-color:#e5e7eb}
-.btn.ghost:hover{border-color:#cfd6de}
-.hright{position:relative;border-radius:26px;overflow:hidden;border:1px solid #e5e7eb;background:#fff;box-shadow:var(--shadow)}
-.photo{
-  position:absolute;inset:0;
-  background:
-    linear-gradient(180deg,#ffffff 0%,#f6f8fb 100%),
-    url("https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=1600&auto=format&fit=crop") center/cover no-repeat;
-}
-.arc{position:absolute;right:-130px;bottom:-130px;width:440px;height:440px;border-radius:50%;background:#fff;border:28px solid var(--blue);opacity:.16}
-
-/* stats */
-.stats{background:var(--beige);padding:26px 0;border-top:1px solid #d7c6a6;border-bottom:1px solid #d7c6a6}
-.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.stat{text-align:center;font-weight:800;color:var(--blue)}
-.stat .big{font-size:34px;color:#0a2a5a}
-
-/* sections */
-.section{padding:68px 0}
-.title{font-size:36px;margin:0 0 18px}
-
-/* services cards */
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
-.card{border:1px solid var(--line);border-radius:18px;padding:22px;background:#fff;box-shadow:0 10px 24px rgba(2,6,23,.04)}
-.icos{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
-.icos.beige{background:var(--beige)} .icos.blue{background:#17355f}
-.icon{width:26px;height:26px;background:#fff;-webkit-mask:center/26px no-repeat;mask:center/26px no-repeat;display:inline-block}
-.icon.cog{-webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 8a4 4 0 110 8 4 4 0 010-8z"/></svg>');mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M12 8a4 4 0 110 8 4 4 0 010-8z'/></svg>")}
-.icon.chart{-webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M4 20h16v-2H4zm2-4h3v2H6zm5-6h3v8h-3zm5-4h3v12h-3z"/></svg>');mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M4 20h16v-2H4zm2-4h3v2H6zm5-6h3v8h-3zm5-4h3v12h-3z'/></svg>")}
-.icon.doc{-webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M14 2H6a2 2 0 00-2 2v16l6-3 6 3V8z"/></svg>');mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M14 2H6a2 2 0 00-2 2v16l6-3 6 3V8z'/></svg>")}
-.hrline{height:2px;width:150px;background:#d6c4a2;margin-top:12px}
-
-/* split */
-.split{padding:68px 0;border-top:1px solid var(--line)}
-.splitgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
-.sright{position:relative;border-radius:24px;overflow:hidden;border:1px solid #e5e7eb;background:#fff;box-shadow:var(--shadow)}
-.photo2{position:absolute;inset:0;background:
-  linear-gradient(180deg,#ffffff 0%,#f6f8fb 100%),
-  url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop") center/cover no-repeat;}
-.arc.top{top:-130px;bottom:auto}
-
-/* process */
-.steps{padding-left:18px;margin:12px 0 0} .steps li{margin:8px 0}
-
-/* pricing */
-.pricing{border:1px solid var(--line);border-radius:18px;padding:22px;background:#fff;box-shadow:0 10px 24px rgba(2,6,23,.04)}
-.pricing ul{margin:10px 0 0;padding-left:18px}
-.badge{display:inline-block;background:#e8edf9;border:1px solid #dfe6f7;color:#0a2a5a;border-radius:999px;padding:6px 12px;font-weight:800}
-
-/* contact */
-.contact{padding:80px 0;background:#fff;border-top:1px solid var(--line)}
-.cicons{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:22px}
-.citem{text-align:center}
-.circle{width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
-.circle.beige{background:var(--beige)} .circle.blue{background:#17355f}
-.ctitle{font-weight:900}
-.cgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
-.form{display:flex;flex-direction:column;gap:12px}
-.form input,.form textarea{border:1px solid var(--line);border-radius:12px;padding:12px;font-size:16px}
-.map{border:1px solid var(--line);border-radius:20px;min-height:260px;position:relative;overflow:hidden}
-.map::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#e9efff,#f5f7fc)}
-
-/* footer */
-.footer{background:var(--blue);color:#cfe0ff;padding:32px 0;margin-top:40px}
-.fgrid{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:18px}
-.fbrand{font-weight:900;color:#fff;font-size:20px}
-
-/* responsiveness */
-@media (max-width:1000px){
-  .tgrid{grid-template-columns:1fr}
-  .hgrid,.splitgrid,.cgrid{grid-template-columns:1fr}
-  .cards{grid-template-columns:1fr 1fr}
-  .sgrid{grid-template-columns:1fr 1fr}
-}
-@media (max-width:640px){
-  .cards,.sgrid{grid-template-columns:1fr}
-  .hleft h1{font-size:36px}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTok Profil Kereső</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #d4af37, #fff);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .container {
+      background: white;
+      padding: 25px 35px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    input {
+      padding: 10px 15px;
+      border: 2px solid #d4af37;
+      border-radius: 10px;
+      width: 250px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-left: 10px;
+      border: none;
+      background-color: #d4af37;
+      color: white;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background-color: #b59129;
+      transform: scale(1.05);
+    }
+    #eredmeny {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    #eredmeny.show {
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
 
-<!-- TOP CONTACT -->
-<div class="top">
-  <div class="container tgrid">
-    <div class="ti"><span class="i phone"></span><div><div class="lbl">Telefon</div><a href="tel:+4549402171">+45 49 40 21 71</a></div></div>
-    <div class="ti"><span class="i clock"></span><div><div class="lbl">Mandag–Fredag</div><div>09:00 – 17:00</div></div></div>
-    <div class="ti"><span class="i pin"></span><div><div class="lbl">Kontor</div><div>Danmark • Slovakiet</div></div></div>
-  </div>
-</div>
-
-<!-- NAV -->
-<header class="nav">
-  <div class="container nrow">
-    <a class="brand" href="#"><img alt="Connectix logo" src="https://dummyimage.com/120x28/0b2e67/ffffff&text=Connectix"><span>Connectix</span></a>
-    <nav class="menu">
-      <a href="#home" data-i="nav.home">Forside</a>
-      <a href="#why" data-i="nav.why">Hvorfor os?</a>
-      <a href="#services" data-i="nav.services">Ydelser</a>
-      <a href="#case" data-i="nav.case">Case</a>
-      <a href="#process" data-i="nav.process">Proces</a>
-      <a href="#contact" data-i="nav.contact">Kontakt</a>
-    </nav>
-    <div class="lang">
-      <button data-lang="da" class="active">DK</button>
-      <button data-lang="en">EN</button>
-    </div>
-  </div>
-  <div class="gold"></div>
-</header>
-
-<!-- HERO -->
-<section id="home" class="hero">
-  <div class="container hgrid">
-    <div class="hleft reveal">
-      <h1 data-i="hero.title">Danske virksomheder i Slovakiet</h1>
-      <p class="lead" data-i="hero.lead">Komplet løsning fra <strong>€6.250</strong> — lovligt, sikkert og enkelt. Vi håndterer alt fra A til Z.</p>
-      <div class="actions">
-        <a href="#contact" class="btn primary" data-i="cta.contact">Kontakt os nu</a>
-        <a href="#case" class="btn ghost" data-i="cta.case">Se casen</a>
-      </div>
-    </div>
-    <div class="hright reveal">
-      <div class="photo"></div><div class="arc"></div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS -->
-<section class="stats">
-  <div class="container sgrid">
-    <div class="stat reveal"><div class="big">99%</div><div data-i="stats.s1">Kundetilfredshed</div></div>
-    <div class="stat reveal"><div class="big">170+</div><div data-i="stats.s2">Aktive kunder</div></div>
-    <div class="stat reveal"><div class="big">450+</div><div data-i="stats.s3">Stiftede selskaber</div></div>
-    <div class="stat reveal"><div class="big">23 år</div><div data-i="stats.s4">Erfaring</div></div>
-  </div>
-</section>
-
-<!-- WHY / SPLIT -->
-<section id="why" class="split">
-  <div class="container splitgrid">
-    <div class="sleft">
-      <h2 class="title" data-i="why.title">Hvorfor vælge Connectix?</h2>
-      <p data-i="why.p1">Vi kommunikerer tydeligt på dansk, følger lovændringer løbende og giver besked proaktivt om det, der berører din virksomhed.</p>
-      <p data-i="why.p2">Kvartalsvis gennemgang af KPI’er giver ro i driften og bedre resultater.</p>
-    </div>
-    <div class="sright reveal">
-      <div class="photo2"></div><div class="arc top"></div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services" class="section">
   <div class="container">
-    <h2 class="title" data-i="svc.title">Hvilke ydelser tilbyder vi?</h2>
-    <div class="cards">
-      <article class="card reveal">
-        <div class="icos beige"><span class="icon cog"></span></div>
-        <h3 data-i="svc.1.t">Virksomhedsstart</h3>
-        <p data-i="svc.1.d">Slovakisk selskabsstiftelse, adresse, moms- og skatteregistrering.</p>
-        <div class="hrline"></div>
-      </article>
-      <article class="card reveal">
-        <div class="icos blue"><span class="icon chart"></span></div>
-        <h3 data-i="svc.2.t">Bogføring & skat</h3>
-        <p data-i="svc.2.d">Enklere administration, lavere faste omkostninger, digital opsætning.</p>
-        <div class="hrline"></div>
-      </article>
-      <article class="card reveal">
-        <div class="icos beige"><span class="icon doc"></span></div>
-        <h3 data-i="svc.3.t">Rapportering</h3>
-        <p data-i="svc.3.d">Kvartalsvise oversigter, så du altid har styr på nøgletallene.</p>
-        <div class="hrline"></div>
-      </article>
-    </div>
+    <h2>TikTok profil kereső</h2>
+    <input type="text" id="profil" placeholder="Add meg a TikTok profilt...">
+    <button onclick="mehet()">Mehet</button>
+    <div id="eredmeny"></div>
   </div>
-</section>
 
-<!-- BUSINESS CASE -->
-<section id="case" class="section">
-  <div class="container">
-    <div class="pricing reveal">
-      <div class="badge" data-i="case.badge">Business Case — Full Package (€6.250)</div>
-      <h2 class="title" data-i="case.title">Fuld pakke — alt inkluderet</h2>
-      <p data-i="case.lead">Vi leverer en fuldt funktionsdygtig slovakisk virksomhed — juridisk, skattemæssigt og administrativt klar til drift.</p>
-      <ul>
-        <li data-i="case.l1">Juridisk rådgivning og registrering ved advokat/notar</li>
-        <li data-i="case.l2">Bogholderi- og skattesystem opsætning</li>
-        <li data-i="case.l3">Statsafgifter og notarunderskrifter</li>
-        <li data-i="case.l4">Alle officielle dokumenter på dansk</li>
-        <li data-i="case.l5">Returfly og assistance i lufthavn</li>
-        <li data-i="case.l6">Slovakisk selskabsadresse (+ privat adresse efter behov)</li>
-        <li data-i="case.l7">Moms- og skatteregistrering</li>
-        <li data-i="case.l8">Digital virksomhedsdrift (signatur, indberetning, portal)</li>
-        <li data-i="case.l9">24/7 support — dansk/slovak kontaktperson</li>
-      </ul>
-      <h3 style="margin:18px 0 6px" data-i="case.taxh">Økonomiske fordele (kort)</h3>
-      <p data-i="case.taxp">Selskabsskat ca. <strong>10%</strong> i Slovakiet (vs. 22% i DK). Arbejdsgiverbidrag typisk <strong>1–2%</strong> (vs. 8–12% i DK). Administration (moms, bogføring) er enklere og billigere.</p>
-    </div>
-  </div>
-</section>
+  <script>
+    function mehet() {
+      const profil = document.getElementById('profil').value.trim();
+      const eredmeny = document.getElementById('eredmeny');
 
-<!-- PROCESS -->
-<section id="process" class="section">
-  <div class="container">
-    <h2 class="title" data-i="proc.title">Proces — trin for trin</h2>
-    <ol class="steps">
-      <li data-i="proc.1"><strong>Kontakt</strong> via formular — vi ringer tilbage inden for 24 timer.</li>
-      <li data-i="proc.2"><strong>Dokumenter</strong> samles og forberedes.</li>
-      <li data-i="proc.3"><strong>Rejse & underskrift</strong> — notar + registrering i Slovakiet.</li>
-      <li data-i="proc.4"><strong>Aktivering</strong> — virksomheden er fuldt klar inden for 72 timer.</li>
-      <li data-i="proc.5"><strong>Drift</strong> — digital opsætning, moms & skat, løbende support.</li>
-    </ol>
-  </div>
-</section>
+      if (profil === '') {
+        eredmeny.innerHTML = 'Kérlek, add meg a TikTok profil nevét!';
+        eredmeny.classList.add('show');
+        return;
+      }
 
-<!-- CONTACT -->
-<section id="contact" class="contact">
-  <div class="container">
-    <div class="cicons">
-      <div class="citem reveal">
-        <div class="circle beige"><span class="i pin"></span></div>
-        <div class="ctitle" data-i="c.addr">Adresse</div>
-        <div>Registreret kontor i Slovakiet</div>
-      </div>
-      <div class="citem reveal">
-        <div class="circle blue"><span class="i phone"></span></div>
-        <div class="ctitle">Telefon</div>
-        <a href="tel:+4549402171">+45 49 40 21 71</a>
-      </div>
-      <div class="citem reveal">
-        <div class="circle beige"><span class="i"></span></div>
-        <div class="ctitle">E-mail</div>
-        <a href="mailto:sales.connectix@protonmail.com">sales.connectix@protonmail.com</a>
-      </div>
-    </div>
+      eredmeny.innerHTML = `
+        <strong>@${profil}</strong><br>
+        Magyarország / Demecser<br>
+        Április 24 • 23:00
+      `;
+      eredmeny.classList.add('show');
+    }
+  </script>
 
-    <div class="cgrid">
-      <form class="form" onsubmit="event.preventDefault(); alert(currentLang==='da'?'Tak! Vi kontakter dig snart.':'Thanks! We will contact you shortly.');">
-        <input type="text" required placeholder="Navn *" data-ph-da="Navn *" data-ph-en="Name *">
-        <input type="email" required placeholder="E-mail *" data-ph-da="E-mail *" data-ph-en="Email *">
-        <textarea rows="6" placeholder="Besked" data-ph-da="Besked" data-ph-en="Message"></textarea>
-        <label style="display:flex;gap:8px;align-items:center;color:#49566a">
-          <input type="checkbox" required>
-          <span data-i="gdpr">Jeg accepterer databehandling (GDPR).</span>
-        </label>
-        <button class="btn primary" type="submit" data-i="send">Send besked</button>
-        <small>Connectix • planlagt domæne: <strong>connectix.dk</strong></small>
-      </form>
-      <div class="map" title="Map placeholder"></div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container fgrid">
-    <div>
-      <div class="fbrand">Connectix</div>
-      <div>© 2025 — Alle rettigheder forbeholdes.</div>
-    </div>
-    <div>
-      <div><strong>E-mail</strong></div>
-      <a href="mailto:sales.connectix@protonmail.com">sales.connectix@protonmail.com</a>
-    </div>
-    <div>
-      <div><strong>Telefon</strong></div>
-      <a href="tel:+4549402171">+45 49 40 21 71</a>
-    </div>
-  </div>
-</footer>
-
-<script>
-/* simple reveal */
-const onScroll=()=>document.querySelectorAll('.reveal').forEach(el=>{
-  const r=el.getBoundingClientRect(); if(r.top<innerHeight-80) el.classList.add('seen');
-}); addEventListener('scroll',onScroll); addEventListener('load',onScroll);
-
-/* i18n: DA (default) + EN */
-const dict={
-  da:{
-    "nav.home":"Forside","nav.why":"Hvorfor os?","nav.services":"Ydelser","nav.case":"Case","nav.process":"Proces","nav.contact":"Kontakt",
-    "hero.title":"Danske virksomheder i Slovakiet",
-    "hero.lead":"Komplet løsning fra <strong>€6.250</strong> — lovligt, sikkert og enkelt. Vi håndterer alt fra A til Z.",
-    "cta.contact":"Kontakt os nu","cta.case":"Se casen",
-    "stats.s1":"Kundetilfredshed","stats.s2":"Aktive kunder","stats.s3":"Stiftede selskaber","stats.s4":"Erfaring",
-    "why.title":"Hvorfor vælge Connectix?","why.p1":"Vi kommunikerer tydeligt på dansk, følger lovændringer løbende og giver besked proaktivt om det, der berører din virksomhed.","why.p2":"Kvartalsvis gennemgang af KPI’er giver ro i driften og bedre resultater.",
-    "svc.title":"Hvilke ydelser tilbyder vi?","svc.1.t":"Virksomhedsstart","svc.1.d":"Slovakisk selskabsstiftelse, adresse, moms- og skatteregistrering.","svc.2.t":"Bogføring & skat","svc.2.d":"Enklere administration, lavere faste omkostninger, digital opsætning.","svc.3.t":"Rapportering","svc.3.d":"Kvartalsvise oversigter, så du altid har styr på nøgletallene.",
-    "case.badge":"Business Case — Full Package (€6.250)","case.title":"Fuld pakke — alt inkluderet","case.lead":"Vi leverer en fuldt funktionsdygtig slovakisk virksomhed — juridisk, skattemæssigt og administrativt klar til drift.",
-    "case.l1":"Juridisk rådgivning og registrering ved advokat/notar","case.l2":"Bogholderi- og skattesystem opsætning","case.l3":"Statsafgifter og notarunderskrifter","case.l4":"Alle officielle dokumenter på dansk","case.l5":"Returfly og assistance i lufthavn","case.l6":"Slovakisk selskabsadresse (+ privat adresse efter behov)","case.l7":"Moms- og skatteregistrering","case.l8":"Digital virksomhedsdrift (signatur, indberetning, portal)","case.l9":"24/7 support — dansk/slovak kontaktperson",
-    "case.taxh":"Økonomiske fordele (kort)","case.taxp":"Selskabsskat ca. <strong>10%</strong> i Slovakiet (vs. 22% i DK). Arbejdsgiverbidrag typisk <strong>1–2%</strong> (vs. 8–12% i DK). Administration (moms, bogføring) er enklere og billigere.",
-    "proc.title":"Proces — trin for trin","proc.1":"<strong>Kontakt</strong> via formular — vi ringer tilbage inden for 24 timer.","proc.2":"<strong>Dokumenter</strong> samles og forberedes.","proc.3":"<strong>Rejse & underskrift</strong> — notar + registrering i Slovakiet.","proc.4":"<strong>Aktivering</strong> — virksomheden er fuldt klar inden for 72 timer.","proc.5":"<strong>Drift</strong> — digital opsætning, moms & skat, løbende support.",
-    "c.addr":"Adresse","gdpr":"Jeg accepterer databehandling (GDPR).","send":"Send besked"
-  },
-  en:{
-    "nav.home":"Home","nav.why":"Why us?","nav.services":"Services","nav.case":"Case","nav.process":"Process","nav.contact":"Contact",
-    "hero.title":"Danish companies in Slovakia",
-    "hero.lead":"Complete solution from <strong>€6,250</strong> — legal, safe and simple. We handle everything A–Z.",
-    "cta.contact":"Contact us now","cta.case":"See the case",
-    "stats.s1":"Customer satisfaction","stats.s2":"Active clients","stats.s3":"Companies formed","stats.s4":"Years experience",
-    "why.title":"Why choose Connectix?","why.p1":"We communicate clearly in Danish, monitor legal changes and notify you proactively.","why.p2":"Quarterly KPI reviews mean calmer operations and better results.",
-    "svc.title":"What services do we offer?","svc.1.t":"Company formation","svc.1.d":"Slovak company setup, address, VAT and tax registration.","svc.2.t":"Accounting & tax","svc.2.d":"Simpler admin, lower fixed costs, full digital setup.","svc.3.t":"Reporting","svc.3.d":"Quarterly dashboards so you’re always on top of the numbers.",
-    "case.badge":"Business Case — Full Package (€6,250)","case.title":"Full package — everything included","case.lead":"You receive a fully operational Slovak company — legally, fiscally and administratively ready.",
-    "case.l1":"Legal advisory and registration by lawyer/notary","case.l2":"Accounting and tax system setup","case.l3":"State fees and notarized signatures","case.l4":"All official documents in Danish","case.l5":"Round-trip flight and airport assistance","case.l6":"Slovak company address (+ private address on request)","case.l7":"VAT and tax registration","case.l8":"Digital operations (signature, filings, portals)","case.l9":"24/7 support — Danish/Slovak contact",
-    "case.taxh":"Economic advantages (short)","case.taxp":"Corporate tax ~<strong>10%</strong> in Slovakia (vs 22% in DK). Employer contributions typically <strong>1–2%</strong> (vs 8–12% in DK). Admin (VAT, accounting) is simpler and cheaper.",
-    "proc.title":"Process — step by step","proc.1":"<strong>Contact</strong> via the form — call-back within 24h.","proc.2":"<strong>Documents</strong> collected and prepared.","proc.3":"<strong>Trip & signatures</strong> — notary + registration in Slovakia.","proc.4":"<strong>Activation</strong> — fully operational within 72 hours.","proc.5":"<strong>Operations</strong> — digital setup, VAT & tax, ongoing support.",
-    "c.addr":"Address","gdpr":"I accept data processing (GDPR).","send":"Send message"
-  }
-};
-let currentLang='da';
-const $ = s=>document.querySelectorAll(s);
-function applyLang(lang){
-  currentLang=lang;
-  document.querySelectorAll('[data-i]').forEach(el=>{
-    const k=el.getAttribute('data-i'); el.innerHTML = (dict[lang][k]||el.innerHTML);
-  });
-  document.querySelectorAll('[data-ph-da]').forEach(el=>{
-    el.placeholder = lang==='da' ? el.getAttribute('data-ph-da') : el.getAttribute('data-ph-en');
-  });
-  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
-}
-$('.lang button').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
-applyLang('da');
-</script>
 </body>
 </html>
