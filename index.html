@@ -1,126 +1,74 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TikTok Profil Kereső</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TikTok – Demecser kiírás</title>
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #d4af37, #fff);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      margin: 0;
-    }
-    .container {
-      background: white;
-      padding: 30px 40px;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      text-align: center;
-      animation: fadeIn 0.8s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    h2 {
-      color: #222;
-      margin-bottom: 15px;
-    }
-    input {
-      padding: 10px 15px;
-      border: 2px solid #d4af37;
-      border-radius: 10px;
-      width: 250px;
-      font-size: 16px;
-    }
-    button {
-      padding: 10px 20px;
-      margin: 10px 5px 0;
-      border: none;
-      background-color: #d4af37;
-      color: white;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    button:hover {
-      background-color: #b59129;
-      transform: scale(1.05);
-    }
-    #alregBtn {
-      display: none;
-    }
-    #eredmeny, #alreg {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #333;
-      opacity: 0;
-      transition: opacity 0.6s ease;
-    }
-    .show {
-      opacity: 1;
-    }
-    .highlight {
-      color: #d4af37;
-      font-weight: bold;
-    }
+    body { font-family: Arial, sans-serif; background:#f7f7f7; margin:0; padding:40px; }
+    .card { background:#fff; max-width:520px; margin:0 auto; padding:24px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,.08); }
+    .row { display:flex; gap:8px; }
+    input { flex:1; padding:10px 12px; font-size:16px; border:1px solid #ccc; border-radius:8px; }
+    button { padding:10px 16px; font-size:16px; border:0; border-radius:8px; background:#d4af37; color:#fff; cursor:pointer; }
+    button:disabled { opacity:.6; cursor:not-allowed; }
+    #eredmeny, #alreg { margin-top:16px; font-size:16px; line-height:1.6; }
+    .mutat { display:inline-block; }
+    .rejtes { display:none; }
+    .mono { font-family: Consolas, Menlo, Monaco, monospace; }
   </style>
 </head>
 <body>
+  <div class="card">
+    <h2>TikTok profil kiírás</h2>
+    <div class="row">
+      <input id="profil" type="text" placeholder="Írd be a TikTok profil nevét (pl. gerakkrisztian)"/>
+      <button id="mehetBtn" type="button">Mehet</button>
+    </div>
 
-  <div class="container">
-    <h2>TikTok profil kereső</h2>
-    <input type="text" id="profil" placeholder="Add meg a TikTok profilt...">
-    <br>
-    <button id="mehetBtn" onclick="mehet()">Mehet</button>
-    <button id="alregBtn" onclick="alreg()">Alregisztráció</button>
     <div id="eredmeny"></div>
-    <div id="alreg"></div>
+
+    <button id="alregBtn" class="rejtes" type="button">Alregisztráció</button>
+    <div id="alreg" class="mono"></div>
   </div>
 
-  <script>
-    function mehet() {
-      const profil = document.getElementById('profil').value.trim();
-      const eredmeny = document.getElementById('eredmeny');
-      const alreg = document.getElementById('alreg');
-      const alregBtn = document.getElementById('alregBtn');
+  <!-- A script defer-rel töltődik, így a DOM már kész, mire fut -->
+  <script defer>
+    (function() {
+      const profilInput = document.getElementById('profil');
+      const mehetBtn    = document.getElementById('mehetBtn');
+      const eredmeny    = document.getElementById('eredmeny');
+      const alregBtn    = document.getElementById('alregBtn');
+      const alregBox    = document.getElementById('alreg');
 
-      // elrejti a korábbi adatokat
-      alreg.classList.remove('show');
-      alregBtn.style.display = 'none';
+      // MEHET gomb logika
+      mehetBtn.addEventListener('click', function() {
+        const nev = (profilInput.value || '').trim();
 
-      if (profil === '') {
-        eredmeny.innerHTML = 'Kérlek, add meg a TikTok profil nevét!';
-        eredmeny.classList.add('show');
-        return;
-      }
+        if (!nev) {
+          eredmeny.textContent = 'Kérlek, add meg a TikTok profil nevét!';
+          alregBtn.classList.add('rejtes');  // biztosan tűnjön el
+          alregBox.textContent = '';
+          return;
+        }
 
-      eredmeny.innerHTML = `
-        <strong>@${profil}</strong><br>
-        Magyarország / Demecser<br>
-        Április 24 • 23:00
-      `;
-      eredmeny.classList.add('show');
+        // Kiírás
+        eredmeny.innerHTML =
+          '<strong>@' + nev + '</strong><br/>Magyarország / Demecser<br/>Április 24 • 23:00';
 
-      // 1 másodperccel később megjelenik az Alregisztráció gomb animáltan
-      setTimeout(() => {
-        alregBtn.style.display = 'inline-block';
-        alregBtn.style.animation = 'fadeIn 0.8s ease';
-      }, 800);
-    } 
+        // Alregisztráció gomb megjelenítése
+        alregBtn.classList.remove('rejtes');
+      });
 
-    function alreg() {
-      const alreg = document.getElementById('alreg');
-      alreg.innerHTML = `<span class="highlight">@gerakkrisztian</span> : <span class="highlight">@lakatosbeatrix451</span>`;
-      alreg.classList.add('show');
-    }
+      // ALREGISZTRÁCIÓ gomb logika
+      alregBtn.addEventListener('click', function() {
+        alregBox.textContent = '@gerakkrisztian : @lakatosbeatrix451';
+      });
+
+      // Enter megnyomására is működjön
+      profilInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') mehetBtn.click();
+      });
+    })();
   </script>
-
 </body>
 </html>
