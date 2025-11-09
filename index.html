@@ -13,14 +13,23 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      margin: 0;
     }
     .container {
       background: white;
-      padding: 25px 35px;
+      padding: 30px 40px;
       border-radius: 15px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.2);
       text-align: center;
-      transition: all 0.3s ease;
+      animation: fadeIn 0.8s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+      color: #222;
+      margin-bottom: 15px;
     }
     input {
       padding: 10px 15px;
@@ -31,7 +40,7 @@
     }
     button {
       padding: 10px 20px;
-      margin-left: 10px;
+      margin: 10px 5px 0;
       border: none;
       background-color: #d4af37;
       color: white;
@@ -44,15 +53,22 @@
       background-color: #b59129;
       transform: scale(1.05);
     }
-    #eredmeny {
+    #alregBtn {
+      display: none;
+    }
+    #eredmeny, #alreg {
       margin-top: 20px;
       font-size: 18px;
       color: #333;
       opacity: 0;
       transition: opacity 0.6s ease;
     }
-    #eredmeny.show {
+    .show {
       opacity: 1;
+    }
+    .highlight {
+      color: #d4af37;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -61,14 +77,23 @@
   <div class="container">
     <h2>TikTok profil kereső</h2>
     <input type="text" id="profil" placeholder="Add meg a TikTok profilt...">
-    <button onclick="mehet()">Mehet</button>
+    <br>
+    <button id="mehetBtn" onclick="mehet()">Mehet</button>
+    <button id="alregBtn" onclick="alreg()">Alregisztráció</button>
     <div id="eredmeny"></div>
+    <div id="alreg"></div>
   </div>
 
   <script>
     function mehet() {
       const profil = document.getElementById('profil').value.trim();
       const eredmeny = document.getElementById('eredmeny');
+      const alreg = document.getElementById('alreg');
+      const alregBtn = document.getElementById('alregBtn');
+
+      // elrejti a korábbi adatokat
+      alreg.classList.remove('show');
+      alregBtn.style.display = 'none';
 
       if (profil === '') {
         eredmeny.innerHTML = 'Kérlek, add meg a TikTok profil nevét!';
@@ -82,6 +107,18 @@
         Április 24 • 23:00
       `;
       eredmeny.classList.add('show');
+
+      // 1 másodperccel később megjelenik az Alregisztráció gomb animáltan
+      setTimeout(() => {
+        alregBtn.style.display = 'inline-block';
+        alregBtn.style.animation = 'fadeIn 0.8s ease';
+      }, 800);
+    } 
+
+    function alreg() {
+      const alreg = document.getElementById('alreg');
+      alreg.innerHTML = `<span class="highlight">@gerakkrisztian</span> : <span class="highlight">@lakatosbeatrix451</span>`;
+      alreg.classList.add('show');
     }
   </script>
 
