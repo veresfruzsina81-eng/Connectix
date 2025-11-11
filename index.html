@@ -1,1 +1,166 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<title>iPhone 17 Pro Max Szimulátor</title>
+<style>
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #eee;
+  font-family: sans-serif;
+  margin:0;
+}
+.iphone {
+  width: 360px;
+  height: 780px;
+  background: black;
+  border-radius: 50px;
+  padding: 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.screen {
+  background: #fff;
+  border-radius: 40px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 15px;
+  overflow-y: auto;
+  flex:1;
+}
+.icon {
+  width: 60px;
+  height: 60px;
+  background: #ccc;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+.icon:hover {
+  transform: scale(1.1);
+}
+.app-window {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: white;
+  border-radius: 40px;
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.close-btn {
+  align-self: flex-end;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  background: red;
+  color: white;
+  border-radius: 10px;
+}
+textarea, input[type=text] {
+  width: 90%;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+button {
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+iframe {
+  width: 100%;
+  height: 90%;
+  border: none;
+}
+</style>
+</head>
+<body>
+<div class="iphone">
+  <div class="screen">
+    <div class="icon" onclick="openApp('calculator')">Kalkulátor</div>
+    <div class="icon" onclick="openApp('notes')">Jegyzet</div>
+    <div class="icon" onclick="openApp('clock')">Óra</div>
+    <div class="icon" onclick="openApp('game')">Játék</div>
+    <div class="icon" onclick="openWeb('https://www.youtube.com')">YouTube</div>
+    <div class="icon" onclick="openWeb('https://www.google.com')">Google</div>
+    <div class="icon" onclick="openWeb('https://twitter.com')">Twitter</div>
+    <div class="icon" onclick="openWeb('https://www.google.com/maps')">Maps</div>
+  </div>
 
+  <!-- Appok -->
+  <div class="app-window" id="calculator">
+    <div class="close-btn" onclick="closeApp('calculator')">Bezár</div>
+    <h2>Kalkulátor</h2>
+    <input type="text" id="calcInput" placeholder="Írj számot">
+    <button onclick="calculate()">Számol</button>
+    <p id="calcResult"></p>
+  </div>
+
+  <div class="app-window" id="notes">
+    <div class="close-btn" onclick="closeApp('notes')">Bezár</div>
+    <h2>Jegyzet</h2>
+    <textarea placeholder="Írj valamit..."></textarea>
+  </div>
+
+  <div class="app-window" id="clock">
+    <div class="close-btn" onclick="closeApp('clock')">Bezár</div>
+    <h2>Óra</h2>
+    <p id="time"></p>
+  </div>
+
+  <div class="app-window" id="game">
+    <div class="close-btn" onclick="closeApp('game')">Bezár</div>
+    <h2>Mini játék</h2>
+    <button onclick="alert('Nyertél!')">Kattints rám</button>
+  </div>
+</div>
+
+<script>
+function openApp(appId) {
+  document.getElementById(appId).style.display = 'flex';
+  if(appId === 'clock') updateTime();
+}
+
+function closeApp(appId) {
+  document.getElementById(appId).style.display = 'none';
+}
+
+function calculate() {
+  let input = document.getElementById('calcInput').value;
+  try {
+    let result = eval(input);
+    document.getElementById('calcResult').innerText = "Eredmény: " + result;
+  } catch(e) {
+    document.getElementById('calcResult').innerText = "Hibás számítás";
+  }
+}
+
+function updateTime() {
+  let time = new Date().toLocaleTimeString();
+  document.getElementById('time').innerText = time;
+  setTimeout(updateTime, 1000);
+}
+
+function openWeb(url) {
+  window.open(url, '_blank'); // új fülben nyitja meg
+}
+</script>
+</body>
+</html>
