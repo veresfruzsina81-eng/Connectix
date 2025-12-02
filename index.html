@@ -2,51 +2,37 @@
 <html lang="hu">
 <head>
 <meta charset="UTF-8">
-<title>Ftp signal esp</title>
+<title>Network Diagnostic Interface</title>
 
 <style>
     body {
         background: #000;
-        margin: 0;
-        padding: 0;
         color: #00ff90;
         font-family: Consolas, monospace;
-        overflow-x: hidden;
-    }
-    h2 {
-        color: #00ffcc;
-        text-shadow: 0 0 10px #00ffcc;
-        margin-top: 20px;
-        text-align: center;
+        margin: 0;
+        padding: 0;
     }
 
-    #splash {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        background: #000;
-        color: #00ff90;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        font-size: 22px;
-        z-index: 9999;
+    h2 {
+        text-align: center;
+        color: #00ffcc;
+        margin-top: 25px;
+        text-shadow: 0 0 6px #008866;
     }
 
     #formBox {
-        width: 400px;
+        width: 420px;
+        margin: 35px auto;
         background: #0a0a0a;
         border: 1px solid #222;
-        box-shadow: 0 0 15px #004422;
         padding: 20px;
-        margin: 40px auto;
-        border-radius: 5px;
+        border-radius: 6px;
+        box-shadow: 0 0 10px #002211;
     }
 
     label {
-        color: #00ff90;
         font-weight: bold;
+        color: #00ff90;
     }
 
     input {
@@ -54,33 +40,34 @@
         background: #000;
         border: 1px solid #005533;
         padding: 10px;
-        margin: 8px 0 20px 0;
         color: #00ff90;
-        font-family: Consolas;
+        margin-bottom: 15px;
         outline: none;
+        font-family: Consolas;
     }
 
     button {
         width: 100%;
-        background: #00ffaa;
-        border: none;
         padding: 12px;
-        font-weight: bold;
+        background: #00ffaa;
         color: #000;
+        border: none;
+        font-weight: bold;
         cursor: pointer;
     }
-
-    button:hover { background: #00cc88; }
+    button:hover {
+        background: #00dd99;
+    }
 
     #terminal {
-        width: 100%;
+        width: 95%;
         max-width: 1100px;
+        height: 67vh;
         margin: 20px auto;
         background: #000;
-        padding: 20px;
         border: 1px solid #003322;
-        box-shadow: 0 0 25px #002211;
-        height: 70vh;
+        padding: 20px;
+        box-shadow: 0 0 20px #001d10;
         overflow-y: auto;
         white-space: pre-wrap;
     }
@@ -88,7 +75,7 @@
     .line {
         opacity: 0;
         animation: show 0.35s forwards;
-        margin: 2px 0;
+        margin: 3px 0;
     }
 
     @keyframes show { to { opacity: 1; } }
@@ -105,76 +92,64 @@
         50% { opacity: 0; }
     }
 
-    .ok { color: #05ff89; font-weight: bold; }
-    .x  { color: #ff3333; font-weight: bold; }
+    .ok  { color: #05ff89; font-weight: bold; }
+    .x   { color: #ff3333; font-weight: bold; }
+
 </style>
 </head>
 <body>
 
-<div id="splash">
-    SYSTEM BOOTING<br><br>
-    <span id="splashtxt">Initializing modules...</span>
-</div>
-
-<h2>SUPER PRO MAX – ULTRA SECURITY TERMINAL</h2>
+<h2>Network Diagnostic Interface</h2>
 
 <div id="formBox">
-    <label>FTP Felhasználónév</label>
+    <label>FTP felhasználónév</label>
     <input id="ftpUser">
 
-    <label>FTP Host</label>
+    <label>FTP host</label>
     <input id="ftpHost">
 
-    <label>FTP Jelszó</label>
+    <label>FTP jelszó</label>
     <input id="ftpPass" type="password">
 
     <label>Port</label>
     <input id="ftpPort">
 
-    <button onclick="startSystem()">Csatlakozás</button>
+    <button onclick="start()">Csatlakozás</button>
 </div>
 
 <pre id="terminal"></pre>
 
 <script>
 
-let splash = document.getElementById("splash");
-let splashtxt = document.getElementById("splashtxt");
-let terminal = document.getElementById("terminal");
-
-setTimeout(()=>{ splashtxt.innerText = "Loading cyber-defense engine..."; },800);
-setTimeout(()=>{ splashtxt.innerText = "Configuring virtual machine..."; },1600);
-setTimeout(()=>{ splash.style.opacity = "0"; splash.style.transition="1.5s"; },2400);
-setTimeout(()=>{ splash.style.display = "none"; },3800);
-
 function timestamp() {
-    const d = new Date();
-    return d.toISOString().replace("T"," ").substring(0,19);
+    let d = new Date();
+    return d.toISOString().replace("T", " ").substring(0,19);
 }
 
-function log(text, delay) {
+function logLine(text, delay) {
     setTimeout(()=>{
         let div = document.createElement("div");
         div.className = "line";
         div.innerHTML = text.replace("█", "<span class='cursor'></span>");
-        terminal.appendChild(div);
-        terminal.scrollTop = terminal.scrollHeight;
+        document.getElementById("terminal").appendChild(div);
+        document.getElementById("terminal").scrollTop =
+            document.getElementById("terminal").scrollHeight;
     }, delay);
 }
 
-function startSystem() {
+function start() {
 
-    const correctUser = "serlegkiralyzsolt.ftp";
-    const correctHost = "serlegkiralyzsolti@sftp.nethely.hu";
-    const correctPass = "SerlegZsolt177";
-    const correctPort = "21";
+    const validUser = "serlegkiralyzsolt.ftp";
+    const validHost = "serlegkiralyzsolti@sftp.nethely.hu";
+    const validPass = "SerlegZsolt177";
+    const validPort = "21";
 
-    const u = document.getElementById("ftpUser").value.trim();
-    const h = document.getElementById("ftpHost").value.trim();
-    const p = document.getElementById("ftpPass").value.trim();
-    const po = document.getElementById("ftpPort").value.trim();
+    let u = document.getElementById("ftpUser").value.trim();
+    let h = document.getElementById("ftpHost").value.trim();
+    let p = document.getElementById("ftpPass").value.trim();
+    let po = document.getElementById("ftpPort").value.trim();
 
-    if (u !== correctUser || h !== correctHost || p !== correctPass || po !== correctPort) {
+    if (u !== validUser || h !== validHost || p !== validPass || po !== validPort) {
         alert("Hibás FTP adatok!");
         return;
     }
@@ -183,52 +158,52 @@ function startSystem() {
 
     let t = 0;
 
-    /* System Intro */
-    log(`[${timestamp()}] Initializing SUPER PRO MAX engine █`, t+=400);
-    log(`[${timestamp()}] Loading virtual network adapter... <span class='ok'>OK</span>`, t+=300);
-    log(`[${timestamp()}] Starting diagnostic interface... <span class='ok'>OK</span>`, t+=300);
-    log("", t+=200);
+    /* RENDSZERINDÍTÁS */
+    logLine(`[${timestamp()}] Rendszer inicializálása █`, t+=300);
+    logLine(`[${timestamp()}] Hálózati modul betöltése ... <span class='ok'>OK</span>`, t+=300);
+    logLine(`[${timestamp()}] Port hozzáférések ellenőrzése ... <span class='ok'>OK</span>`, t+=300);
+    logLine("", t+=200);
 
     /* FTP */
-    log(`[${timestamp()}] Connecting to FTP host ${h}:${po} ...`, t+=300);
-    log(`[${timestamp()}] Sending USER serlegkiralyzsolt.ftp ... <span class='ok'>✔ ACCEPTED</span>`, t+=300);
-    log(`[${timestamp()}] Sending PASS ****** ... <span class='ok'>✔ ACCEPTED</span>`, t+=300);
-    log(`[${timestamp()}] FTP SESSION ACTIVE`, t+=300);
+    logLine(`[${timestamp()}] Kapcsolódás az FTP hosthoz: ${h}:${po} ...`, t+=300);
+    logLine(`[${timestamp()}] USER küldése (${u}) ... <span class='ok'>✔ ACCEPTED</span>`, t+=300);
+    logLine(`[${timestamp()}] PASS küldése ... <span class='ok'>✔ ACCEPTED</span>`, t+=300);
+    logLine(`[${timestamp()}] FTP session aktív`, t+=300);
 
-    log("", t+=200);
-    log(`Checking remote index:`, t+=200);
+    logLine("", t+=200);
+    logLine(`Index ellenőrzése:`, t+=200);
 
-    log(`leo_ferkovics-teszt.ftp ................ <span class='x'>X</span>`, t+=300);
-    log(`aurionstudio_ftp (84.3.43.176, Anarcs) .. <span class='ok'>✔</span>`, t+=300);
-    log(`kódolás_indítása_4482 ................... <span class='x'>X</span>`, t+=300);
+    logLine(`istall.ftp ................................ <span class='ok'>✔</span>`, t+=250);
+    logLine(`leo_ferkovics-teszt.ftp .................... <span class='x'>X</span>`, t+=250);
+    logLine(`aurionstudio_ftp (84.3.43.176, Anarcs) ..... <span class='ok'>✔</span>`, t+=250);
 
     /* SSH */
-    log("", t+=300);
-    log(`[${timestamp()}] Initiating SSH handshake...`, t+=300);
-    log(`[${timestamp()}] Verifying RSA fingerprint... <span class='ok'>✔ VALID</span>`, t+=300);
-    log(`[${timestamp()}] SSH connection to 178.164.245.50 (Budapest) ... <span class='ok'>✔</span>`, t+=300);
+    logLine("", t+=300);
+    logLine(`[${timestamp()}] SSH kapcsolat indítása...`, t+=300);
+    logLine(`[${timestamp()}] RSA fingerprint ellenőrzése ... <span class='ok'>✔</span>`, t+=300);
+    logLine(`[${timestamp()}] SSH h@h.com-ferkovics: 178.164.245.50 (Budapest) ... <span class='ok'>✔</span>`, t+=300);
 
-    /* Geo */
-    log("", t+=300);
-    log(`[${timestamp()}] GeoIP Lookup Results:`, t+=300);
-    log(`  84.3.43.176 → Anarcs 🇭🇺`, t+=300);
-    log(`  178.164.245.50 → Budapest 🇭🇺`, t+=300);
-    log(`  31.46.113.85 → Debrecen 🇭🇺`, t+=300);
+    /* GEO */
+    logLine("", t+=300);
+    logLine(`[${timestamp()}] IP helymeghatározás:`, t+=300);
+    logLine(`  84.3.43.176  →  Anarcs`, t+=250);
+    logLine(`  178.164.245.50  →  Budapest`, t+=250);
+    logLine(`  31.46.113.85  →  Debrecen`, t+=250);
 
-    /* Logins */
-    log("", t+=300);
-    log(`================== TEGNAPI BELÉPÉSEK ==================`, t+=300);
-    log(`[2025-12-01 09:12:44] IP: 84.3.43.176 (Anarcs) <span class='ok'>✔</span>`, t+=300);
-    log(`[2025-12-01 14:27:10] IP: 178.164.245.50 (Budapest) <span class='ok'>✔</span>`, t+=300);
+    /* BEJELENTKEZÉSI NAPLÓ */
+    logLine("", t+=300);
+    logLine(`================ Tegnapi belépések ================`, t+=300);
+    logLine(`[2025-12-01 09:12:44] 84.3.43.176 (Anarcs) <span class='ok'>✔</span>`, t+=250);
+    logLine(`[2025-12-01 14:27:10] 178.164.245.50 (Budapest) <span class='ok'>✔</span>`, t+=250);
 
-    log("", t+=200);
-    log(`==================== MAI BELÉPÉSEK ====================`, t+=300);
-    log(`[2025-12-02 07:51:21] IP: 84.3.43.176 (Anarcs) <span class='ok'>✔</span>`, t+=300);
-    log(`[2025-12-02 11:19:03] IP: 31.46.113.85 (Debrecen) <span class='ok'>✔</span>`, t+=300);
+    logLine("", t+=300);
+    logLine(`================ Mai belépések ====================`, t+=300);
+    logLine(`[2025-12-02 07:51:21] 84.3.43.176 (Anarcs) <span class='ok'>✔</span>`, t+=250);
+    logLine(`[2025-12-02 11:19:03] 31.46.113.85 (Debrecen) <span class='ok'>✔</span>`, t+=250);
 
-    log("", t+=300);
-    log(`[${timestamp()}] SYSTEM STATUS: <span class='ok'>ALL CHECKS PASSED ✔</span>`, t+=300);
-    log(`[${timestamp()}] SUPER PRO MAX TERMINAL READY.`, t+=300);
+    /* VÉGE */
+    logLine("", t+=300);
+    logLine(`[${timestamp()}] Diagnosztika kész.`, t+=300);
 }
 
 </script>
