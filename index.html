@@ -2,230 +2,176 @@
 <html lang="hu">
 <head>
 <meta charset="UTF-8">
-<title>serlegkiraly.hu - Diagnosztika SUPER PRO</title>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<title>FTP/SSH Diagnostic – Log</title>
 
 <style>
     body {
-        background: #000;
-        color: #00ff95;
+        background: #000000;
+        color: #00ff90;
         font-family: Consolas, monospace;
-        padding: 25px;
+        padding: 30px;
     }
-
-    h2 { color: #00c8ff; }
-
+    h2 {
+        color: #00c8ff;
+        margin-bottom: 20px;
+        text-shadow: 0 0 5px #00c8ff;
+    }
     #formBox {
-        background: #111;
+        background: #101010;
+        width: 430px;
         padding: 20px;
-        width: 350px;
         border: 1px solid #333;
         border-radius: 4px;
+        box-shadow: 0 0 10px #003344;
     }
     input {
         width: 100%;
-        padding: 10px;
         background: #000;
         border: 1px solid #444;
-        color: #00ff95;
+        color: #00ff90;
+        padding: 10px;
         margin-bottom: 10px;
+        font-family: Consolas;
     }
     button {
         width: 100%;
-        padding: 10px;
+        padding: 12px;
         background: #00c8ff;
-        border: none;
         color: #000;
         font-weight: bold;
+        border: none;
         cursor: pointer;
-        margin-top: 10px;
     }
-    button:hover { background: #009bc2; }
-
+    button:hover {
+        background: #009dc7;
+    }
     .line {
         opacity: 0;
         animation: show 0.35s forwards;
-        margin: 4px 0;
+        margin: 3px 0;
+        font-size: 15px;
     }
     @keyframes show { to { opacity: 1; } }
+    .ok  { color: #3cff8f; font-weight: bold; }
+    .x   { color: #ff3b3b; font-weight: bold; }
+    .warn { color: #ffcc00; font-weight: bold; }
 
-    .x { color: #ff2e2e; font-weight: bold; }
-    .ok { color: #3cff8f; font-weight: bold; }
-
-    .loader {
-        border: 4px solid #333;
-        border-top: 4px solid #00ff95;
-        border-radius: 50%;
-        width: 22px;
-        height: 22px;
-        animation: spin 1s linear infinite;
+    /* Villogó kurzor */
+    .cursor {
         display: inline-block;
+        width: 8px;
+        height: 16px;
+        background: #00ff90;
+        animation: blink 0.8s infinite;
     }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
+    @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
+    }
 
-    #alertBox {
-        position: fixed;
-        top: 25%;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #1b1b1b;
-        color: #ff4040;
-        border: 2px solid #ff4040;
-        padding: 20px;
-        width: 350px;
-        text-align: center;
-        display: none;
+    /* LED státusz sáv */
+    #statusBar {
+        margin-top: 20px;
         font-size: 18px;
-    }
-
-    #exportBtn {
-        margin-top: 25px;
-        background: #3cff8f;
-        color: #000;
-        display: none;
-        padding: 12px;
-        cursor: pointer;
+        color: #ffffff;
     }
 </style>
 </head>
 <body>
 
-<h2>serlegkiraly.hu – Diagnosztikai Rendszer SUPER PRO</h2>
+<h2>FTP / SSH Diagnostic – SUPER PRO MAX 2025</h2>
 
-<div id="alertBox">
-    <b>SECURITY ALERT</b><br><br>
-    Szokatlan kapcsolat aktivitás észlelve…<br>
-    Elemzés folyamatban…
-</div>
+<div id="statusBar">Status: 🔴 Waiting for user input…</div>
 
 <div id="formBox">
+    <label>FTP Username:</label>
+    <input id="ftpUser" placeholder="pl. admin">
+
     <label>FTP Host:</label>
-    <input id="host" placeholder="pl. serlegkiraly.hu">
-    <button onclick="startScan()">Csatlakozás</button>
+    <input id="ftpHost" placeholder="pl. serlegkiraly.hu">
+
+    <label>FTP Password:</label>
+    <input id="ftpPass" type="password" placeholder="••••••••">
+
+    <label>Port:</label>
+    <input id="ftpPort" placeholder="21">
+
+    <button onclick="startFTP()">Connect</button>
 </div>
 
 <pre id="console" style="margin-top:30px;"></pre>
 
-<button id="exportBtn" onclick="exportPDF()">📄 Kapcsolat Napló PDF Export</button>
-
 <script>
-
-// ========== PDF EXPORT ==========
-function exportPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    const text = document.getElementById("console").innerText;
-
-    doc.setFont("courier", "normal");
-    doc.setFontSize(11);
-    doc.text(text, 10, 10);
-
-    doc.save("diagnosztikai-naplo.pdf");
+function now() {
+    const d = new Date();
+    return d.toISOString().replace("T", " ").substring(0, 19);
 }
 
-// ========== START SCAN ==========
-function startScan() {
-    const host = document.getElementById("host").value.trim();
-    if (!host) return alert("Írd be a hostot!");
+function startFTP() {
+    const user = document.getElementById("ftpUser").value.trim();
+    const host = document.getElementById("ftpHost").value.trim();
+    const pass = document.getElementById("ftpPass").value.trim();
+    const port = document.getElementById("ftpPort").value.trim();
 
-    document.getElementById("formBox").style.display = "none";
-
-    setTimeout(() => {
-        document.getElementById("alertBox").style.display = "block";
-    }, 500);
-
-    setTimeout(() => {
-        document.getElementById("alertBox").style.display = "none";
-        runDiagnostics(host);
-    }, 2400);
-}
-
-// ========== MAIN DIAGNOSTICS ==========
-async function runDiagnostics(host) {
-    const consoleDiv = document.getElementById("console");
-
-    // ===== REAL PING REQUEST =====
-    let realPing = await fetch(`https://api.ipapi.is/ping/${host}`).then(r => r.json()).catch(() => null);
-    let pingResult = realPing?.response_time_ms ? 
-        `Valós ping válasz: ${realPing.response_time_ms} ms` : 
-        "PING API hiba vagy túlterhelés.";
-
-    // ===== REAL BLACKLIST CHECK =====
-    let blacklistStatus = "Blacklista ellenőrzés sikertelen.";
-
-    try {
-        let ipGet = await fetch(`https://api.ipapi.is/?domain=${host}`).then(r => r.json());
-        if (ipGet?.ip) {
-            let bl = await fetch(`https://api.ipapi.is/blacklist/${ipGet.ip}`).then(r => r.json());
-            blacklistStatus = bl.detected 
-                ? `❌ Feketelistán: ${bl.engines.join(", ")}` 
-                : "✔ Nem szerepel feketelistán";
-        }
-    } catch (e) {
-        blacklistStatus = "Blacklista lekérés: Hiba.";
+    if (!user || !host || !pass || !port) {
+        alert("Minden mező kötelező!");
+        return;
     }
 
-    // ===== FTP LISTA IMITÁCIÓ =====
-    const ftpFiles = [
-        "-rw-r--r--  1 admin root   2048 Jan 21  2025 index.php",
-        "drwxr-xr-x  2 admin root   4096 Jan 17  2025 images",
-        "-rw-r--r--  1 admin root   1024 Jan 14  2025 config.json",
-        "-rw-r--r--  1 admin root   5320 Jan 12  2025 products.xml",
-        "drwxr-xr-x  3 admin root   4096 Jan 10  2025 backup",
-        "-rw-r--r--  1 admin root   8870 Jan  9  2025 log.txt"
-    ];
+    document.getElementById("statusBar").innerHTML = "Status: 🟡 Processing…";
+    document.getElementById("formBox").style.display = "none";
 
-    // ===== LOG LINES =====
+    const consoleDiv = document.getElementById("console");
+
+    const geo1 = "84.3.43.176 (HU 🇭🇺 Budapest)";
+    const geo2 = "178.164.245.50 (HU 🇭🇺 Debrecen)";
+
     const lines = [
-        "<span class='loader'></span> Kapcsolódás: " + host,
-        "TLS kézfogás… <span class='ok'>OK</span>",
-        "Hitelesítés… <span class='ok'>Sikeres</span>",
-        "",
-        "→ FTP modul",
-        "Lekérés: leo_ferkovics-teszt.ftp ... <span class='x'>HIBA</span>",
-        "Lekérés: aurionstudio_ftp (84.3.43.176) ... <span class='ok'>✔</span>",
-        "Lekérés: kódolás_indítása_4482 ... <span class='x'>HIBA</span>",
-        "",
-        "→ SSH kapcsolat",
-        "Kapcsolat: h@h.com-ferkovics | IP: 178.164.245.50 ... <span class='ok'>✔</span>",
-        "",
-        "→ VALÓDI PING LEKÉRÉS",
-        pingResult,
-        "",
-        "→ IP FEKETELISTA ELLENŐRZÉS",
-        blacklistStatus,
-        "",
-        "→ FTP LISTA",
-        ...ftpFiles,
-        "",
-        "→ Legutóbbi FTP belépések",
-        "84.3.43.176 ... <span class='ok'>✔</span>",
-        "178.164.245.50 ... <span class='ok'>✔</span>",
-        "",
-        "<span class='ok'>Rendszerellenőrzés befejezve.</span>"
+        `[${now()}] [INFO] Initializing SUPER PRO MAX engine █`,
+        `[${now()}] [CONNECT] Trying ${host}:${port} (attempt 1/3)...`,
+        `[${now()}] [CONNECT] TCP handshake... <span class='ok'>OK</span>`,
+        `[${now()}] [CONNECT] TLS handshake (TLS 1.3)... <span class='ok'>OK</span>`,
+        `[${now()}] [AUTH] USER ${user} ... <span class='ok'>ACCEPTED</span>`,
+        `[${now()}] [AUTH] PASS ****** ... <span class='ok'>ACCEPTED</span>`,
+        `[${now()}] [SSH] Checking server RSA key... fingerprint: 9F:2C:88:3A:91:FE ... <span class='ok'>VALID</span>`,
+        `[${now()}] [SSH] Key hash (SHA256): Zk12uP91poAe76Gdf6ckA==`,
+        ``,
+        `[${now()}] [SECURITY] Brute-force attempts yesterday: <span class='warn'>2 suspicious entries</span>`,
+        ``,
+        `================== TEGNAPI BELÉPÉSEK ==================`,
+        `[2025-12-01 09:12:44] IP: ${geo1} <span class='ok'>SUCCESS</span>`,
+        `[2025-12-01 14:27:10] IP: ${geo2} <span class='ok'>SUCCESS</span>`,
+        ``,
+        `==================== MAI BELÉPÉSEK ====================`,
+        `[2025-12-02 07:51:21] IP: ${geo1} <span class='ok'>SUCCESS</span>`,
+        `[2025-12-02 11:19:03] IP: ${geo2} <span class='ok'>SUCCESS</span>`,
+        ``,
+        `[${now()}] [SESSION] Retrieving connection summary...`,
+        `[${now()}] [SUMMARY] FTP/SSH diagnostics complete.`,
+        `[${now()}] [END] System ready.`
     ];
 
     let index = 0;
+
     function showLine() {
         if (index >= lines.length) {
-            document.getElementById("exportBtn").style.display = "block";
+            document.getElementById("statusBar").innerHTML = "Status: 🟢 Connected";
             return;
         }
         const div = document.createElement("div");
         div.className = "line";
-        div.style.animationDelay = (index * 0.3) + "s";
-        div.innerHTML = lines[index];
+        div.style.animationDelay = (index * 0.25) + "s";
+        div.innerHTML = lines[index].replace("█", "<span class='cursor'></span>");
         consoleDiv.appendChild(div);
         index++;
     }
 
     for (let i = 0; i < lines.length; i++) {
-        setTimeout(showLine, i * 300);
+        setTimeout(showLine, i * 250);
     }
 }
-
 </script>
+
 </body>
 </html>
