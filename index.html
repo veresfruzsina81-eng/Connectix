@@ -2,175 +2,235 @@
 <html lang="hu">
 <head>
 <meta charset="UTF-8">
-<title>FTP/SSH Diagnostic – Log</title>
+<title>Ftp signal esp</title>
 
 <style>
     body {
-        background: #000000;
+        background: #000;
+        margin: 0;
+        padding: 0;
         color: #00ff90;
         font-family: Consolas, monospace;
-        padding: 30px;
+        overflow-x: hidden;
     }
     h2 {
-        color: #00c8ff;
-        margin-bottom: 20px;
-        text-shadow: 0 0 5px #00c8ff;
+        color: #00ffcc;
+        text-shadow: 0 0 10px #00ffcc;
+        margin-top: 20px;
+        text-align: center;
     }
+
+    #splash {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        color: #00ff90;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px;
+        z-index: 9999;
+    }
+
     #formBox {
-        background: #101010;
-        width: 430px;
+        width: 400px;
+        background: #0a0a0a;
+        border: 1px solid #222;
+        box-shadow: 0 0 15px #004422;
         padding: 20px;
-        border: 1px solid #333;
-        border-radius: 4px;
-        box-shadow: 0 0 10px #003344;
+        margin: 40px auto;
+        border-radius: 5px;
     }
+
+    label {
+        color: #00ff90;
+        font-weight: bold;
+    }
+
     input {
         width: 100%;
         background: #000;
-        border: 1px solid #444;
-        color: #00ff90;
+        border: 1px solid #005533;
         padding: 10px;
-        margin-bottom: 10px;
+        margin: 8px 0 20px 0;
+        color: #00ff90;
         font-family: Consolas;
+        outline: none;
     }
+
     button {
         width: 100%;
-        padding: 12px;
-        background: #00c8ff;
-        color: #000;
-        font-weight: bold;
+        background: #00ffaa;
         border: none;
+        padding: 12px;
+        font-weight: bold;
+        color: #000;
         cursor: pointer;
     }
-    button:hover {
-        background: #009dc7;
+
+    button:hover { background: #00cc88; }
+
+    #terminal {
+        width: 100%;
+        max-width: 1100px;
+        margin: 20px auto;
+        background: #000;
+        padding: 20px;
+        border: 1px solid #003322;
+        box-shadow: 0 0 25px #002211;
+        height: 70vh;
+        overflow-y: auto;
+        white-space: pre-wrap;
     }
+
     .line {
         opacity: 0;
         animation: show 0.35s forwards;
-        margin: 3px 0;
-        font-size: 15px;
+        margin: 2px 0;
     }
-    @keyframes show { to { opacity: 1; } }
-    .ok  { color: #3cff8f; font-weight: bold; }
-    .x   { color: #ff3b3b; font-weight: bold; }
-    .warn { color: #ffcc00; font-weight: bold; }
 
-    /* Villogó kurzor */
+    @keyframes show { to { opacity: 1; } }
+
     .cursor {
         display: inline-block;
-        width: 8px;
+        width: 10px;
         height: 16px;
         background: #00ff90;
-        animation: blink 0.8s infinite;
+        animation: blink 0.7s infinite;
     }
     @keyframes blink {
-        0% { opacity: 1; }
+        0%, 100% { opacity: 1; }
         50% { opacity: 0; }
-        100% { opacity: 1; }
     }
 
-    /* LED státusz sáv */
-    #statusBar {
-        margin-top: 20px;
-        font-size: 18px;
-        color: #ffffff;
-    }
+    .ok { color: #05ff89; font-weight: bold; }
+    .x  { color: #ff3333; font-weight: bold; }
 </style>
 </head>
 <body>
 
-<h2>FTP / SSH Diagnostic – SUPER PRO MAX 2025</h2>
-
-<div id="statusBar">Status: 🔴 Waiting for user input…</div>
-
-<div id="formBox">
-    <label>FTP Username:</label>
-    <input id="ftpUser" placeholder="pl. admin">
-
-    <label>FTP Host:</label>
-    <input id="ftpHost" placeholder="pl. serlegkiraly.hu">
-
-    <label>FTP Password:</label>
-    <input id="ftpPass" type="password" placeholder="••••••••">
-
-    <label>Port:</label>
-    <input id="ftpPort" placeholder="21">
-
-    <button onclick="startFTP()">Connect</button>
+<div id="splash">
+    SYSTEM BOOTING<br><br>
+    <span id="splashtxt">Initializing modules...</span>
 </div>
 
-<pre id="console" style="margin-top:30px;"></pre>
+<h2>SUPER PRO MAX – ULTRA SECURITY TERMINAL</h2>
+
+<div id="formBox">
+    <label>FTP Felhasználónév</label>
+    <input id="ftpUser">
+
+    <label>FTP Host</label>
+    <input id="ftpHost">
+
+    <label>FTP Jelszó</label>
+    <input id="ftpPass" type="password">
+
+    <label>Port</label>
+    <input id="ftpPort">
+
+    <button onclick="startSystem()">Csatlakozás</button>
+</div>
+
+<pre id="terminal"></pre>
 
 <script>
-function now() {
+
+let splash = document.getElementById("splash");
+let splashtxt = document.getElementById("splashtxt");
+let terminal = document.getElementById("terminal");
+
+setTimeout(()=>{ splashtxt.innerText = "Loading cyber-defense engine..."; },800);
+setTimeout(()=>{ splashtxt.innerText = "Configuring virtual machine..."; },1600);
+setTimeout(()=>{ splash.style.opacity = "0"; splash.style.transition="1.5s"; },2400);
+setTimeout(()=>{ splash.style.display = "none"; },3800);
+
+function timestamp() {
     const d = new Date();
-    return d.toISOString().replace("T", " ").substring(0, 19);
+    return d.toISOString().replace("T"," ").substring(0,19);
 }
 
-function startFTP() {
-    const user = document.getElementById("ftpUser").value.trim();
-    const host = document.getElementById("ftpHost").value.trim();
-    const pass = document.getElementById("ftpPass").value.trim();
-    const port = document.getElementById("ftpPort").value.trim();
+function log(text, delay) {
+    setTimeout(()=>{
+        let div = document.createElement("div");
+        div.className = "line";
+        div.innerHTML = text.replace("█", "<span class='cursor'></span>");
+        terminal.appendChild(div);
+        terminal.scrollTop = terminal.scrollHeight;
+    }, delay);
+}
 
-    if (!user || !host || !pass || !port) {
-        alert("Minden mező kötelező!");
+function startSystem() {
+
+    const correctUser = "serlegkiralyzsolt.ftp";
+    const correctHost = "serlegkiralyzsolti@sftp.nethely.hu";
+    const correctPass = "SerlegZsolt177";
+    const correctPort = "21";
+
+    const u = document.getElementById("ftpUser").value.trim();
+    const h = document.getElementById("ftpHost").value.trim();
+    const p = document.getElementById("ftpPass").value.trim();
+    const po = document.getElementById("ftpPort").value.trim();
+
+    if (u !== correctUser || h !== correctHost || p !== correctPass || po !== correctPort) {
+        alert("Hibás FTP adatok!");
         return;
     }
 
-    document.getElementById("statusBar").innerHTML = "Status: 🟡 Processing…";
     document.getElementById("formBox").style.display = "none";
 
-    const consoleDiv = document.getElementById("console");
+    let t = 0;
 
-    const geo1 = "84.3.43.176 (HU 🇭🇺 Budapest)";
-    const geo2 = "178.164.245.50 (HU 🇭🇺 Debrecen)";
+    /* System Intro */
+    log(`[${timestamp()}] Initializing SUPER PRO MAX engine █`, t+=400);
+    log(`[${timestamp()}] Loading virtual network adapter... <span class='ok'>OK</span>`, t+=300);
+    log(`[${timestamp()}] Starting diagnostic interface... <span class='ok'>OK</span>`, t+=300);
+    log("", t+=200);
 
-    const lines = [
-        `[${now()}] [INFO] Initializing SUPER PRO MAX engine █`,
-        `[${now()}] [CONNECT] Trying ${host}:${port} (attempt 1/3)...`,
-        `[${now()}] [CONNECT] TCP handshake... <span class='ok'>OK</span>`,
-        `[${now()}] [CONNECT] TLS handshake (TLS 1.3)... <span class='ok'>OK</span>`,
-        `[${now()}] [AUTH] USER ${user} ... <span class='ok'>ACCEPTED</span>`,
-        `[${now()}] [AUTH] PASS ****** ... <span class='ok'>ACCEPTED</span>`,
-        `[${now()}] [SSH] Checking server RSA key... fingerprint: 9F:2C:88:3A:91:FE ... <span class='ok'>VALID</span>`,
-        `[${now()}] [SSH] Key hash (SHA256): Zk12uP91poAe76Gdf6ckA==`,
-        ``,
-        `[${now()}] [SECURITY] Brute-force attempts yesterday: <span class='warn'>2 suspicious entries</span>`,
-        ``,
-        `================== TEGNAPI BELÉPÉSEK ==================`,
-        `[2025-12-01 09:12:44] IP: ${geo1} <span class='ok'>SUCCESS</span>`,
-        `[2025-12-01 14:27:10] IP: ${geo2} <span class='ok'>SUCCESS</span>`,
-        ``,
-        `==================== MAI BELÉPÉSEK ====================`,
-        `[2025-12-02 07:51:21] IP: ${geo1} <span class='ok'>SUCCESS</span>`,
-        `[2025-12-02 11:19:03] IP: ${geo2} <span class='ok'>SUCCESS</span>`,
-        ``,
-        `[${now()}] [SESSION] Retrieving connection summary...`,
-        `[${now()}] [SUMMARY] FTP/SSH diagnostics complete.`,
-        `[${now()}] [END] System ready.`
-    ];
+    /* FTP */
+    log(`[${timestamp()}] Connecting to FTP host ${h}:${po} ...`, t+=300);
+    log(`[${timestamp()}] Sending USER serlegkiralyzsolt.ftp ... <span class='ok'>✔ ACCEPTED</span>`, t+=300);
+    log(`[${timestamp()}] Sending PASS ****** ... <span class='ok'>✔ ACCEPTED</span>`, t+=300);
+    log(`[${timestamp()}] FTP SESSION ACTIVE`, t+=300);
 
-    let index = 0;
+    log("", t+=200);
+    log(`Checking remote index:`, t+=200);
 
-    function showLine() {
-        if (index >= lines.length) {
-            document.getElementById("statusBar").innerHTML = "Status: 🟢 Connected";
-            return;
-        }
-        const div = document.createElement("div");
-        div.className = "line";
-        div.style.animationDelay = (index * 0.25) + "s";
-        div.innerHTML = lines[index].replace("█", "<span class='cursor'></span>");
-        consoleDiv.appendChild(div);
-        index++;
-    }
+    log(`leo_ferkovics-teszt.ftp ................ <span class='x'>X</span>`, t+=300);
+    log(`aurionstudio_ftp (84.3.43.176, Anarcs) .. <span class='ok'>✔</span>`, t+=300);
+    log(`kódolás_indítása_4482 ................... <span class='x'>X</span>`, t+=300);
 
-    for (let i = 0; i < lines.length; i++) {
-        setTimeout(showLine, i * 250);
-    }
+    /* SSH */
+    log("", t+=300);
+    log(`[${timestamp()}] Initiating SSH handshake...`, t+=300);
+    log(`[${timestamp()}] Verifying RSA fingerprint... <span class='ok'>✔ VALID</span>`, t+=300);
+    log(`[${timestamp()}] SSH connection to 178.164.245.50 (Budapest) ... <span class='ok'>✔</span>`, t+=300);
+
+    /* Geo */
+    log("", t+=300);
+    log(`[${timestamp()}] GeoIP Lookup Results:`, t+=300);
+    log(`  84.3.43.176 → Anarcs 🇭🇺`, t+=300);
+    log(`  178.164.245.50 → Budapest 🇭🇺`, t+=300);
+    log(`  31.46.113.85 → Debrecen 🇭🇺`, t+=300);
+
+    /* Logins */
+    log("", t+=300);
+    log(`================== TEGNAPI BELÉPÉSEK ==================`, t+=300);
+    log(`[2025-12-01 09:12:44] IP: 84.3.43.176 (Anarcs) <span class='ok'>✔</span>`, t+=300);
+    log(`[2025-12-01 14:27:10] IP: 178.164.245.50 (Budapest) <span class='ok'>✔</span>`, t+=300);
+
+    log("", t+=200);
+    log(`==================== MAI BELÉPÉSEK ====================`, t+=300);
+    log(`[2025-12-02 07:51:21] IP: 84.3.43.176 (Anarcs) <span class='ok'>✔</span>`, t+=300);
+    log(`[2025-12-02 11:19:03] IP: 31.46.113.85 (Debrecen) <span class='ok'>✔</span>`, t+=300);
+
+    log("", t+=300);
+    log(`[${timestamp()}] SYSTEM STATUS: <span class='ok'>ALL CHECKS PASSED ✔</span>`, t+=300);
+    log(`[${timestamp()}] SUPER PRO MAX TERMINAL READY.`, t+=300);
 }
+
 </script>
 
 </body>
